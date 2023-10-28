@@ -1,0 +1,46 @@
+// eslint-disable-next-line react/prop-types
+const CreateNote = ({ inputText, setInputText, setTitle, title, saveNotes, setfolders, allFolderLists }) => {
+
+    const handleDropdownChange = (e) => {
+        setfolders(e.target.value);
+    }
+
+    return (
+        <div className='my-5 mr-8'>
+            <div className=''>
+                <input
+                    value={title}
+                    placeholder="Title for the Note"
+                    onChange={(e) => setTitle(e.target.value)}
+                    className='p-3 rounded-md m-3 w-full h-10 bg-black border-white text-white placeholder-white'
+                />
+            </div>
+            <div>
+                <textarea
+                    cols={20}
+                    rows={15}
+                    placeholder='Write here...'
+                    className='p-3 rounded-md m-3 w-full bg-black border-white text-white placeholder-white'
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                >
+                </textarea>
+            </div>
+            <div className="flex space-x-5 ml-5">
+                <select className="w-24 rounded" onChange={handleDropdownChange}>
+
+                    {allFolderLists && allFolderLists.length >0 && allFolderLists.map((item) => (
+                        <>
+                            <option value={item}>{item}</option>
+                        </>
+                    ))}
+                </select>
+                <div className="ml-4">
+                    <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white" onClick={saveNotes}>Save</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default CreateNote

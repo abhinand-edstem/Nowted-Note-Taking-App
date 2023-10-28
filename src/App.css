@@ -1,0 +1,17 @@
+.full_view{
+    width: 80%;
+    height: 80vh;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-top: 20px;
+  }
+  
+  .full_view > h1 {
+    text-align: center;
+    margin: 10px 20px;
+  }
+  
+  .full_view > p {
+    padding: 10px 20px;
+  }
