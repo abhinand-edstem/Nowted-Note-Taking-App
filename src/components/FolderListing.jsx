@@ -2,8 +2,6 @@ import { useState } from "react";
 
 const FolderListing = ({ notes, setselected, favoritesBtnClick, isFav, favorites }) => {
 
-    console.warn("aa",isFav);
-    console.warn("ab",favorites);
     const [isClicked, setIsClicked] = useState();
 
     const handleElementClick = (event, note) => {

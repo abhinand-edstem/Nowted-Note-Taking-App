@@ -36,7 +36,6 @@ const HomePage = () => {
 
     const addNewFolders = () =>{
         allfolders.push(newFolders);
-        console.log({allfolders});
         setallFolderLists(allfolders);
     }
 
@@ -114,8 +113,6 @@ const HomePage = () => {
     }
 
     const editHandler = (selected) => {
-
-        console.warn({selected});
         setEditToggle(selected?.id);
         setInputText(selected?.text);
         setTitle(selected?.title);
@@ -132,7 +129,6 @@ const HomePage = () => {
     }
 
     const favItems = (selected) => {
-        console.log({ selected });
         setfavorites(selected);
         setfav(!fav);
     }

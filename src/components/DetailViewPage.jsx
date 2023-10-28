@@ -18,7 +18,6 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
         editHandler(selected);
         setIsOpen(true);
     }
-    console.warn({ selected });
 
     const handleFontsizeChange = (e) => {
         setFontSize(e.target.value);
@@ -29,7 +28,6 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
     }
 
     const handleStarClicked = (selected) => {
-        console.log({ selected });
         favItems(selected?.id)
         setstar(!star);
     }
