@@ -152,7 +152,6 @@ const HomePage = () => {
 
     const TrashItems = () => {
         const trashDatas = JSON.parse(localStorage.getItem("trashItems"));
-        console.log("malavikaaaaa", trashDatas);
         if (trashDatas) {
             navigate("/trash", {
                 state: {
@@ -166,7 +165,6 @@ const HomePage = () => {
 
     const ArchivedClick = () => {
         const archivedData = JSON.parse(localStorage.getItem("archived"));
-        console.log("malavikaaaaa", archivedData);
         if (archivedData) {
             navigate("/archive", {
                 state: {

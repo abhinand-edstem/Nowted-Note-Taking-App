@@ -7,8 +7,6 @@ import { useState } from 'react';
 // eslint-disable-next-line react/prop-types
 const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, TrashItems, ArchivedClick, setnewFolders, newFolders,addNewFolders, allFolderLists}) => {
 
-    console.warn({allFolderLists});
-
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
     const recentNotes = notes.slice(-3);
