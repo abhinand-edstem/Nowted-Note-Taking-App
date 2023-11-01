@@ -1,37 +1,43 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { FaSearch, FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
 import { AiFillDelete, AiFillFolder, AiOutlineStar } from 'react-icons/ai';
-import {BiTrashAlt } from 'react-icons/bi';
-import { useState } from 'react';
+import { BiTrashAlt } from 'react-icons/bi';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, TrashItems, ArchivedClick, setnewFolders, newFolders,addNewFolders, allFolderLists}) => {
+const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
+    const navigate = useNavigate();
 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
+    // eslint-disable-next-line react/prop-types
     const recentNotes = notes.slice(-3);
+
 
     const handleclick = (event, note) => {
         setselected(note)
         setIsClicked(note?.id);
     }
 
-    const favFiles = notes.filter((note)=>{
+    // eslint-disable-next-line react/prop-types
+    const favFiles = notes.filter((note) => {
         return note.favorites == true;
     })
 
-    const createNewFolder = () =>{
+    const createNewFolder = () => {
         setinputbox(!inputbox);
     }
 
-    const handleclickFolderOpen = () =>{
+    const handleclickFolderOpen = () => {
         addNewFolders();
         setinputbox(!inputbox);
     }
- 
+
 
     return (
-        <div className="p-3 bg-[#181818] h-full h-[100vh]">
+        <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
             <div className="flex justify-between px-1 my-6">
                 <div className='relative'><h2 className="font-Kaushan Script text-white text-3xl">nowted</h2>
                     <p className='text-white absolute left-[110px] font-["Kaushan"] top-0'><FaPen /></p>
@@ -40,7 +46,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
             </div>
 
             <div className='flex justify-center'>
-                <button onClick={() => setIsOpen(!isOpen)} className='bg-[#9ca3af] w-[90%] h-14 text-xl font-semibold text-white'><span> + </span> Add Notes</button>
+                <button onClick={() => setIsOpen(!isOpen)} className='bg-[#9ca3af] w-[90%] h-12 text-xl font-semibold text-white'><span> + </span> Add Notes</button>
             </div>
 
             <div className='my-6 mx-2' >
@@ -64,19 +70,19 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                 </div>
                 {inputbox && <>
                     <input
-                    value={newFolders}
-                    placeholder="Title for the Note"
-                    onChange={(e) => setnewFolders(e.target.value)}
-                    className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-white placeholder-white'
-                />
-                <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 ml-3'>Add</button>
+                        value={newFolders}
+                        placeholder="Title for the Note"
+                        onChange={(e) => setnewFolders(e.target.value)}
+                        className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-white placeholder-white'
+                    />
+                    <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 ml-3'>Add</button>
                 </>}
-                {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item,index)=> (
+                {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                     <>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={()=>setfolderSelect(item)}>
-                        <AiFillFolder className='mt-1' />
-                        <p>{item}</p>
-                    </div>
+                        <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={() => setfolderSelect(item)}>
+                            <AiFillFolder className='mt-1' />
+                            <p>{item}</p>
+                        </div>
                     </>
                 ))}
             </div>
@@ -84,15 +90,15 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
             <div className='my-6 mx-2'>
                 <p className='text-[#8c8c8c] text-lg font-semibold'>More</p>
                 <div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] border-red-300 my-4 cursor-pointer' onClick={()=>favBtnClick(favFiles)}>
+                    <div className='flex justify-start space-x-4 text-[#8c8c8c] border-red-300 my-4 cursor-pointer' onClick={() => favBtnClick(favFiles)}>
                         <AiOutlineStar className='mt-1' />
                         <p>Favorites</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={TrashItems}>
+                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={() => navigate("/trash")}>
                         <BiTrashAlt className='mt-1' />
                         <p>Trash</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={ArchivedClick}>
+                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={() => navigate("/archive")}>
                         <AiFillDelete className='mt-1' />
                         <p>Archived Notes</p>
                     </div>
