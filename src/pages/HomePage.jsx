@@ -36,7 +36,8 @@ const HomePage = () => {
     const [folderSelect, setfolderSelect] = useState("")
     const [newFolders, setnewFolders] = useState("")
     const [allFolderLists, setallFolderLists] = useState()
-    const [initialRun, setinitialRun] = useState(true)
+    const [initialRun, setinitialRun] = useState(true);
+
 
     //give some predefined folders
     const allfolders = ['personal', 'work', 'travel', 'events', 'Finances'];
@@ -56,7 +57,8 @@ const HomePage = () => {
         }
     };
 
-    if(initialRun){
+
+    if (initialRun) {
         fetchData();
     }
 
@@ -82,7 +84,6 @@ const HomePage = () => {
 
     const addNewFolders = () => {
         allFolderLists.push(newFolders);
-        // setallFolderLists(allFolderLists);
         localStorage.setItem("folders", JSON.stringify(allFolderLists));
     }
 
@@ -113,11 +114,12 @@ const HomePage = () => {
     useEffect(() => {
         if (favorites) {
             setNotes(notes.map((note) => (
-                note.id == favorites ?
-                    { ...note, text: note?.text, title: note?.title, Category: folders, favorites: true } : note
-            )))
+                note.id === favorites ?
+                    { ...note, text: note.text, title: note.title, Category: folders, favorites: !note.favorites } : note
+            )));
         }
-    }, [favorites])
+    }, [favorites]);
+
 
 
     const saveNotes = () => {
@@ -134,6 +136,9 @@ const HomePage = () => {
                     { ...note, text: inputText, title: title, Category: folders, favorites: false }
                     : note
             )))
+            setTimeout(() => {
+                setselected();
+            }, 200);
         }
         else {
             setNotes((prevNotes) => [
@@ -160,6 +165,7 @@ const HomePage = () => {
         setcreatedDate(selected?.createdDate);
         setfolders(selected?.Category);
         setedit(true)
+
     }
 
     const deleteNote = (selected) => {
@@ -171,12 +177,14 @@ const HomePage = () => {
         var newData = selected;
         dataArray.push(newData);
         var updatedData = JSON.stringify(dataArray);
-        // localStorage.setItem('trashItems', updatedData);
         dispatch(getTrash(updatedData));
         const newNotes = notes.filter(n => n.id !== selected?.id);
         dispatch(getNotes(newNotes));
-        // localStorage.setItem("Notes", JSON.stringify(newNotes));
         setNotes(newNotes)
+
+        setTimeout(() => {
+            setselected();
+        }, 200);
     }
 
     const favItems = (selected) => {
@@ -199,11 +207,9 @@ const HomePage = () => {
         var newData = selected;
         dataArray.push(newData);
         var updatedData = JSON.stringify(dataArray);
-        // localStorage.setItem('archived', updatedData);
         dispatch(getArchived(updatedData));
 
         const newNotes = notes.filter(n => n.id !== selected?.id);
-        // localStorage.setItem("Notes", JSON.stringify(newNotes));
         dispatch(getNotes(newNotes));
         setNotes(newNotes)
     }

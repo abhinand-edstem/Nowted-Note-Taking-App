@@ -1,18 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrash } from "../store/allTrash/TrashAction";
+import { useNavigate } from "react-router-dom";
 
 const TrashPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const data = useSelector((store) => store.trash.trash);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getTrash());
-    },[])
+    }, [])
 
     return (
         <>
-        <h2 className="my-4 text-center text-3xl">Trash Items</h2>
+            <h2 className="my-4 text-center text-3xl">Trash Items</h2>
+            <button className="bg-blue-500 p-2 rounded mx-5" onClick={() => navigate("/")}>Back to Home</button>
             <div className="flex flex-wrap">
                 {data && data.length && data.map((item) => (
                     <>

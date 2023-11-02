@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CreateNote from './CreateNotes';
 import { BiHide } from 'react-icons/bi';
 import { BsCalendarDate } from 'react-icons/bs';
 
 import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { useDispatch } from 'react-redux';
+import { getNotes } from '../store/allNotes/NotesActions';
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, folders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm }) => {
+const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, folders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm,sudenUpdate }) => {
 
+    const dispatch = useDispatch();
 
-    // const [star, setstar] = useState(false);
+    const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
+
+    useEffect(()=>{
+        dispatch(getNotes());
+    },[])
 
 
     const onEditClick = () => {
@@ -30,7 +37,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
 
     const handleStarClicked = (selected) => {
         favItems(selected?.id)
-        // setstar(!star);
+        setstar(!star);
     }
     return (
         <div className="p-2 bg-[#181818] h-full h-[100vh] overflow-y-auto">
@@ -47,7 +54,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                             </div>
                             <AiOutlineDelete onClick={() => deleteNote(selected)} className='text-white mt-8 text-base cursor-pointer' />
                             <AiOutlineEdit onClick={onEditClick} className='text-white m-8 text-base cursor-pointer' />
-                            <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer`} />
+                            <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected.favorites ? 'text-yellow-600' : star ? 'text-yellow-500' : 'text-white'}`} />
                         </div>
 
                     </div>

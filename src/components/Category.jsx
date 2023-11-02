@@ -56,7 +56,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                         <>
                             <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#8c8c8c] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
                                 <CgNotes className='text-white text-2xl' />
-                                <p>{note?.title}</p>
+                                <p>{note?.title.substring(0,20)}</p>
                             </div>
                         </>
                     ))}
@@ -71,6 +71,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                 {inputbox && <>
                     <input
                         value={newFolders}
+                        maxLength={20}
                         placeholder="Title for the Note"
                         onChange={(e) => setnewFolders(e.target.value)}
                         className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-white placeholder-white'
