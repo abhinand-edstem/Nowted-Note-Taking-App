@@ -1,15 +1,17 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getArchived } from "../store/allArchived/ArchivedActions";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ArchivedPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const data = useSelector((store) => store.archive.Archive);
+
+    const [data, setdata] = useState();
+    console.log({data});
 
     useEffect(()=>{
-        dispatch(getArchived());
+        axios.get("http://localhost:8080/v1/notes/archived").then((res=>{
+            setdata(res?.data)
+        }))
     },[])
 
     return (
@@ -22,11 +24,11 @@ const ArchivedPage = () => {
                         <div className='border border-black w-[30vw] h-auto m-5 rounded'>
                             <div className='flex justify-between px-4 my-4'>
                                 <h1 className="font-bold text-xl">{item?.title}</h1>
-                                <p>{item?.Category}</p>
+                                <p>{item?.folder?.name}</p>
                             </div>
 
                             <div className="px-4 mb-4">
-                                <p>{item?.text}</p>
+                                <p>{item?.content}</p>
                             </div>
 
                         </div>

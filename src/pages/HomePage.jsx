@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { v4 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Category from "../components/Category";
 import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
-import { getNotes } from "../store/allNotes/NotesActions";
-import { getTrash } from "../store/allTrash/TrashAction";
-import { getArchived } from "../store/allArchived/ArchivedActions";
+import { getNotes, noteDelete } from "../store/allNotes/NotesActions";
+import { getFolder } from "../store/allFolder/FolderAction";
+import axios from "axios";
 
 
 const HomePage = () => {
@@ -19,18 +18,16 @@ const HomePage = () => {
     const [title, setTitle] = useState("")
     const [createdDate, setcreatedDate] = useState();
     const [selected, setselected] = useState();
+    const [id, setid] = useState();
 
-    const [folders, setfolders] = useState("personal")
+    const [folders, setfolders] = useState([])
 
     const [notes, setNotes] = useState([]);
     const [folderNotes, setFolderNotes] = useState({})
     const [editToggle, setEditToggle] = useState(null);
     const [edit, setedit] = useState(false)
-    const [add, setadd] = useState(false)
-    const [fav, setfav] = useState(false)
 
     const [favorites, setfavorites] = useState(null);
-    const [favoritesBtnClick, setfavoritesBtnClick] = useState()
     const [isFav, setisFav] = useState("list");
 
     const [folderSelect, setfolderSelect] = useState("")
@@ -38,12 +35,21 @@ const HomePage = () => {
     const [allFolderLists, setallFolderLists] = useState()
     const [initialRun, setinitialRun] = useState(true);
 
+    console.warn({ folderNotes });
 
     //give some predefined folders
-    const allfolders = ['personal', 'work', 'travel', 'events', 'Finances'];
+    const allfolders = [];
 
     //get value from store
     const allNotes = useSelector((store) => store.note.notes);
+    const allFolder = useSelector((store) => store.folder.folder);
+
+    console.log({allFolder});
+
+
+    useEffect(() => {
+        dispatch(getFolder());
+    }, [])
 
     const fetchData = async () => {
         if (allNotes.length > 0) {
@@ -56,70 +62,45 @@ const HomePage = () => {
             }
         }
     };
-
-
+    //logic for avoid re render
     if (initialRun) {
         fetchData();
     }
 
     function validateForm() {
-        if (title.length > 0 && inputText.length > 0) {
+        if (title.length > 0 && inputText.length > 0 && folders.length > 0) {
             saveNotes();
         }
         else {
-            alert('Invalid Form fill both Title & Desc')
+            alert('Invalid Form fill both Title , Desc & Option select')
         }
     }
 
     useEffect(() => {
         dispatch(getNotes());
-        dispatch(getTrash());
         setallFolderLists(allfolders);
-        const folders = JSON.parse(localStorage.getItem("folders"));
-        if (folders) {
-            setallFolderLists(folders);
-        }
+        axios.get("http://localhost:8080/v1/folders").then((res => {
+            setallFolderLists(res?.data);
+        }))
     }, []);
 
 
     const addNewFolders = () => {
-        allFolderLists.push(newFolders);
-        localStorage.setItem("folders", JSON.stringify(allFolderLists));
+        let params = {
+            name: newFolders
+        }
+        axios.post("http://localhost:8080/v1/folders", params)
     }
-
-
-    useEffect(() => {
-        if (edit) {
-            dispatch(getNotes(notes));
-        }
-        else if (add) {
-            dispatch(getNotes(notes));
-        } else if (fav) {
-            dispatch(getNotes(notes));
-        }
-    }, [notes]);
-
 
     useEffect(() => {
         if (folderSelect) {
             const folderSelectData = notes.filter((data) => {
-                return data.Category == folderSelect
+                return data.folderName == folderSelect
             })
             setFolderNotes(folderSelectData);
             setisFav("folderSelect");
         }
     }, [folderSelect])
-
-
-    useEffect(() => {
-        if (favorites) {
-            setNotes(notes.map((note) => (
-                note.id === favorites ?
-                    { ...note, text: note.text, title: note.title, Category: folders, favorites: !note.favorites } : note
-            )));
-        }
-    }, [favorites]);
-
 
 
     const saveNotes = () => {
@@ -129,89 +110,68 @@ const HomePage = () => {
         const day = currentDate.getDate().toString().padStart(2, '0');
 
         const formattedDate = `${year}-${month}-${day}`;
-
         if (editToggle) {
-            setNotes(notes.map((note) => (
-                note.id === editToggle ?
-                    { ...note, text: inputText, title: title, Category: folders, favorites: false }
-                    : note
-            )))
-            setTimeout(() => {
-                setselected();
-            }, 200);
+            let params = {
+                title: title,
+                content: inputText,
+                createdDate: formattedDate,
+                folder: {
+                    id: folders,
+                    // name: "folder3"
+                }
+            }
+            axios.put(`http://localhost:8080/v1/notes/${id}`,
+                params
+            )
         }
         else {
-            setNotes((prevNotes) => [
-                ...prevNotes, {
-                    id: uuid(),
-                    text: inputText,
-                    title: title,
-                    Category: folders,
-                    createdDate: formattedDate,
-                    favorites: false
+            let params = {
+                title: title,
+                content: inputText,
+                createdDate: formattedDate,
+                folder: {
+                    id: folders,
+                    // name: "folder3"
                 }
-            ])
-            setadd(true)
+            }
+            dispatch(getNotes(params));
         }
-        setInputText("");
-        setTitle("");
-        setIsOpen(false);
     }
 
     const editHandler = (selected) => {
         setEditToggle(selected?.id);
-        setInputText(selected?.text);
+        setInputText(selected?.content);
         setTitle(selected?.title);
         setcreatedDate(selected?.createdDate);
         setfolders(selected?.Category);
         setedit(true)
-
+        setid(selected?.id);
     }
 
     const deleteNote = (selected) => {
-        var existingData = localStorage.getItem('trashItems');
-        var dataArray = existingData ? JSON.parse(existingData) : [];
-        if (!Array.isArray(dataArray)) {
-            dataArray = [dataArray];
-        }
-        var newData = selected;
-        dataArray.push(newData);
-        var updatedData = JSON.stringify(dataArray);
-        dispatch(getTrash(updatedData));
-        const newNotes = notes.filter(n => n.id !== selected?.id);
-        dispatch(getNotes(newNotes));
-        setNotes(newNotes)
 
+        let params = {
+            id: selected.id
+        }
+        dispatch(noteDelete(params))
         setTimeout(() => {
             setselected();
         }, 200);
     }
 
     const favItems = (selected) => {
-        setfavorites(selected);
-        setfav(!fav);
+        axios.put(`http://localhost:8080/v1/notes/${selected}/favorite`)
     }
 
-    const favBtnClick = (items) => {
-        setfavoritesBtnClick(items);
-        setisFav("fav")
+    const favBtnClick = () => {
+        axios.get("http://localhost:8080/v1/notes/favorites").then((res => {
+            setfavorites(res?.data)
+            setisFav("fav")
+        }))
     }
 
-
-    const ArchivedItesm = (selected) => {
-        var existingData = localStorage.getItem('archived');
-        var dataArray = existingData ? JSON.parse(existingData) : [];
-        if (!Array.isArray(dataArray)) {
-            dataArray = [dataArray];
-        }
-        var newData = selected;
-        dataArray.push(newData);
-        var updatedData = JSON.stringify(dataArray);
-        dispatch(getArchived(updatedData));
-
-        const newNotes = notes.filter(n => n.id !== selected?.id);
-        dispatch(getNotes(newNotes));
-        setNotes(newNotes)
+    const ArchivedItesm = (id) => {
+        axios.put(`http://localhost:8080/v1/notes/${id}/archive`)
     }
 
     return (
@@ -223,8 +183,8 @@ const HomePage = () => {
                     notes={notes}
                     setselected={setselected}
                     favBtnClick={favBtnClick}
+                    folderSelect={folderSelect}
                     setfolderSelect={setfolderSelect}
-                    allfolders={allfolders}
                     setnewFolders={setnewFolders}
                     newFolders={newFolders}
                     addNewFolders={addNewFolders}
@@ -238,7 +198,6 @@ const HomePage = () => {
                     setNotes={setNotes}
                     selected={selected}
                     setselected={setselected}
-                    favoritesBtnClick={favoritesBtnClick}
                     favorites={favorites}
                     isFav={isFav}
                     folderNotes={folderNotes}

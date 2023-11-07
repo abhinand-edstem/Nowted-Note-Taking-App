@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import CreateNote from './CreateNotes';
 import { BiHide } from 'react-icons/bi';
 import { BsCalendarDate } from 'react-icons/bs';
-
 import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { useDispatch } from 'react-redux';
-import { getNotes } from '../store/allNotes/NotesActions';
+
 
 // eslint-disable-next-line react/prop-types
 const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, folders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm,sudenUpdate }) => {
 
-    const dispatch = useDispatch();
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
-
-    useEffect(()=>{
-        dispatch(getNotes());
-    },[])
-
 
     const onEditClick = () => {
         editHandler(selected);
@@ -48,7 +40,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                         <h2 className="text-white text-3xl font-semibold my-6 mx-2">{selected.title}</h2>
                         <div className='flex space-x-5 pr-8'>
                             <div className="group flex relative">
-                                <span className=" text-white px-2 m-8 cursor-pointer"><BiHide onClick={() => ArchivedItesm(selected)} /></span>
+                                <span className=" text-white px-2 m-8 cursor-pointer"><BiHide onClick={() => ArchivedItesm(selected?.id)} /></span>
                                 <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
                                 -translate-x-1/2 translate-y-full opacity-0 m-8 p-2 mx-auto">Archive</span>
                             </div>
@@ -77,7 +69,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                             <p className='text-white font-normal'>folder</p>
                         </div>
                         <div>
-                            <p className='text-white font-normal'>{selected.Category}</p>
+                            <p className='text-white font-normal'>{selected?.folderName}</p>
                             <hr />
                         </div>
                     </div>
@@ -110,7 +102,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                         <p className={`text-white
                          ${fontSize == "15" ? 'text-[15px]' : fontSize == 18 ? 'text-[18px]' : fontSize == 20 ? 'text-[20px]' : fontSize == 22 ? 'text-[22px]' : ''} 
                          ${fontbold == "Normal" ? 'font-normal' : fontbold == "semibold" ? 'font-semibold' : fontbold == "bold" ? 'font-bold' : ''} 
-                         leading-8`}>{selected.text}</p>
+                         leading-8`}>{selected.content}</p>
                     </div>
                 </div> : <>
                     <CreateNote

@@ -1,6 +1,7 @@
 // eslint-disable-next-line react/prop-types
 const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick,validateForm }) => {
 
+
     const handleDropdownChange = (e) => {
         setfolders(e.target.value);
     }
@@ -26,11 +27,11 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
                 <div>
                     <textarea
                         name="text"
+                        value={inputText}
                         cols={20}
                         rows={15}
                         placeholder='Write here...'
                         className='p-3 rounded-md m-3 w-full bg-black border-white text-white placeholder-white'
-                        value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         required
                     >
@@ -41,7 +42,7 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
 
                         {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                             <>
-                                <option key={index} value={item}>{item}</option>
+                                <option key={index} value={item?.id}>{item?.name}</option>
                             </>
                         ))}
                     </select>

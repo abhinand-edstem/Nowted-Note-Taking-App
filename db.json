@@ -1,0 +1,39 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "bbbbbbbb",
+      "author": "typicode"
+    },
+    {
+      "title": "fffffffff",
+      "autho": "abhiiii",
+      "id": 66,
+      "params": {
+        "title": "xxxxxxxxxxxx",
+        "autho": "abhiiii",
+        "id": 66
+      }
+    },
+    {
+      "title": "saesrtfhgs",
+      "author": "abhiiii",
+      "id": 67
+    },
+    {
+      "title": "ddddddd",
+      "author": "aishuuuu",
+      "id": 68
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

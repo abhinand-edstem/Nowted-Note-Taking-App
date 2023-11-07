@@ -5,10 +5,14 @@ import { FaSearch, FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
 import { AiFillDelete, AiFillFolder, AiOutlineStar } from 'react-icons/ai';
 import { BiTrashAlt } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
     const navigate = useNavigate();
+
+    // console.log({allFolderLists});
+    
 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
@@ -22,9 +26,9 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
     }
 
     // eslint-disable-next-line react/prop-types
-    const favFiles = notes.filter((note) => {
-        return note.favorites == true;
-    })
+    // const favFiles = notes.filter((note) => {
+    //     return note.favorites == true;
+    // })
 
     const createNewFolder = () => {
         setinputbox(!inputbox);
@@ -80,9 +84,9 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                 </>}
                 {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                     <>
-                        <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={() => setfolderSelect(item)}>
+                        <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={() => setfolderSelect(item?.name)}>
                             <AiFillFolder className='mt-1' />
-                            <p>{item}</p>
+                            <p>{item?.name}</p>
                         </div>
                     </>
                 ))}
@@ -91,7 +95,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
             <div className='my-6 mx-2'>
                 <p className='text-[#8c8c8c] text-lg font-semibold'>More</p>
                 <div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] border-red-300 my-4 cursor-pointer' onClick={() => favBtnClick(favFiles)}>
+                    <div className='flex justify-start space-x-4 text-[#8c8c8c] border-red-300 my-4 cursor-pointer' onClick={favBtnClick}>
                         <AiOutlineStar className='mt-1' />
                         <p>Favorites</p>
                     </div>
