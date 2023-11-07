@@ -4,10 +4,7 @@ import { useSelector } from "react-redux";
 const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav, favorites, folderNotes }) => {
 
     const [isClicked, setIsClicked] = useState();
-
-
-
-
+    
     const handleFolderClick = (event, note) => {
         setselected(note);
         setIsClicked(note?.id);

@@ -27,13 +27,12 @@ export const getNotes = createAsyncThunk("note/getNotes", async (reqData, { reje
 });
 
 export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { rejectWithValue }) => {
-    debugger;
     try {
         let params = {
-            id : reqData.id
+            id: reqData.id
         }
-            const { data } = await axios.delete(`http://localhost:8080/v1/notes/${params.id}`)
-            return data;
+        const { data } = await axios.delete(`http://localhost:8080/v1/notes/${params.id}`)
+        return data;
 
     } catch (error) {
         if (error.response && error.response.data.message) {

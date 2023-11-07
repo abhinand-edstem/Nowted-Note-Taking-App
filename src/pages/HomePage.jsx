@@ -25,7 +25,6 @@ const HomePage = () => {
     const [notes, setNotes] = useState([]);
     const [folderNotes, setFolderNotes] = useState({})
     const [editToggle, setEditToggle] = useState(null);
-    const [edit, setedit] = useState(false)
 
     const [favorites, setfavorites] = useState(null);
     const [isFav, setisFav] = useState("list");
@@ -35,7 +34,7 @@ const HomePage = () => {
     const [allFolderLists, setallFolderLists] = useState()
     const [initialRun, setinitialRun] = useState(true);
 
-    console.warn({ folderNotes });
+    console.warn({ notes });
 
     //give some predefined folders
     const allfolders = [];
@@ -44,12 +43,8 @@ const HomePage = () => {
     const allNotes = useSelector((store) => store.note.notes);
     const allFolder = useSelector((store) => store.folder.folder);
 
-    console.log({allFolder});
+    console.log({ allFolder });
 
-
-    useEffect(() => {
-        dispatch(getFolder());
-    }, [])
 
     const fetchData = async () => {
         if (allNotes.length > 0) {
@@ -62,6 +57,7 @@ const HomePage = () => {
             }
         }
     };
+    
     //logic for avoid re render
     if (initialRun) {
         fetchData();
@@ -78,19 +74,20 @@ const HomePage = () => {
 
     useEffect(() => {
         dispatch(getNotes());
+        dispatch(getFolder());
         setallFolderLists(allfolders);
-        axios.get("http://localhost:8080/v1/folders").then((res => {
-            setallFolderLists(res?.data);
-        }))
     }, []);
+
+    useEffect(()=>{
+        setallFolderLists(allFolder)
+    },[allFolder])
 
 
     const addNewFolders = () => {
-        debugger;
         let params = {
             name: newFolders
         }
-        axios.post("http://localhost:8080/v1/folders", params)
+        dispatch(getFolder(params))
     }
 
     useEffect(() => {
@@ -144,13 +141,12 @@ const HomePage = () => {
         setInputText(selected?.content);
         setTitle(selected?.title);
         setcreatedDate(selected?.createdDate);
-        setfolders(selected?.Category);
-        setedit(true)
+        setfolders(selected?.folderId);
+        // setedit(true)
         setid(selected?.id);
     }
 
     const deleteNote = (selected) => {
-
         let params = {
             id: selected.id
         }
@@ -161,7 +157,14 @@ const HomePage = () => {
     }
 
     const favItems = (selected) => {
-        axios.put(`http://localhost:8080/v1/notes/${selected}/favorite`)
+        if(selected.favorite){
+            axios.delete(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
+        } else {
+            axios.put(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
+        }
+        setTimeout(() => {
+            setselected();
+        }, 200);
     }
 
     const favBtnClick = () => {

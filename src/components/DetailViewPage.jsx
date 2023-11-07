@@ -9,6 +9,7 @@ import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-
 // eslint-disable-next-line react/prop-types
 const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, folders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm,sudenUpdate }) => {
 
+    console.warn({selected});
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
@@ -28,7 +29,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
     }
 
     const handleStarClicked = (selected) => {
-        favItems(selected?.id)
+        favItems(selected)
         setstar(!star);
     }
     return (
@@ -46,7 +47,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                             </div>
                             <AiOutlineDelete onClick={() => deleteNote(selected)} className='text-white mt-8 text-base cursor-pointer' />
                             <AiOutlineEdit onClick={onEditClick} className='text-white m-8 text-base cursor-pointer' />
-                            <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected.favorites ? 'text-yellow-600' : star ? 'text-yellow-500' : 'text-white'}`} />
+                            <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected?.favorite ? 'text-yellow-500' : ''}`} />
                         </div>
 
                     </div>
