@@ -86,6 +86,7 @@ const HomePage = () => {
 
 
     const addNewFolders = () => {
+        debugger;
         let params = {
             name: newFolders
         }

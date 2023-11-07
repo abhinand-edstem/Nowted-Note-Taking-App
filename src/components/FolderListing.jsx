@@ -23,7 +23,7 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
                             <h1 key={index} className="text-white text-base font-semibold">{note?.title}</h1>
                             <div className="flex mt-1 space-x-5">
                                 <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
-                                <h1 className="text-white text-sm break-words">{note?.content.substring(1, 40)}</h1>
+                                <h1 className="text-white text-sm break-words">{note?.content.substring(0, 40)}</h1>
                             </div>
                         </div>
                     ))}
@@ -38,7 +38,7 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
                                 <h1 className="text-white text-base font-semibold">{note?.title}</h1>
                                 <div className="flex mt-1 space-x-5">
                                     <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
-                                    <h1 className="text-white text-sm break-words">{note?.content.substring(1, 40)}</h1>
+                                    <h1 className="text-white text-sm break-words">{note?.content.substring(0, 40)}</h1>
                                 </div>
                             </div>
                         </>
@@ -56,7 +56,7 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
                                         <h1 className="text-white text-base font-semibold">{note?.title}</h1>
                                         <div className="flex mt-1 space-x-5">
                                             <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
-                                            <h1 className="text-white text-sm break-words">{note?.content.substring(1, 40)}</h1>
+                                            <h1 className="text-white text-sm break-words">{note?.content.substring(0, 40)}</h1>
                                         </div>
                                     </div>
                                 </>

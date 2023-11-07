@@ -76,7 +76,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                     <input
                         value={newFolders}
                         maxLength={20}
-                        placeholder="Title for the Note"
+                        placeholder="Title for the Folder"
                         onChange={(e) => setnewFolders(e.target.value)}
                         className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-white placeholder-white'
                     />
