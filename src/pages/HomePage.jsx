@@ -88,6 +88,9 @@ const HomePage = () => {
             name: newFolders
         }
         dispatch(getFolder(params))
+        setTimeout(()=>{
+            dispatch(getFolder());
+        },500)
     }
 
     useEffect(() => {
@@ -153,6 +156,7 @@ const HomePage = () => {
         dispatch(noteDelete(params))
         setTimeout(() => {
             setselected();
+            dispatch(getNotes());
         }, 200);
     }
 
@@ -162,9 +166,9 @@ const HomePage = () => {
         } else {
             axios.put(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
         }
-        setTimeout(() => {
-            setselected();
-        }, 200);
+        // setTimeout(() => {
+        //     setselected();
+        // }, 200);
     }
 
     const favBtnClick = () => {

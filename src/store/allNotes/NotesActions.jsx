@@ -31,7 +31,7 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
         let params = {
             id: reqData.id
         }
-        const { data } = await axios.delete(`http://localhost:8080/v1/notes/${params.id}`)
+        const { data } = await axios.post(`http://localhost:8080/v1/trash/${params.id}`)
         return data;
 
     } catch (error) {
