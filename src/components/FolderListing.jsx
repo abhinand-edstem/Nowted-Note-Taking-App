@@ -24,7 +24,7 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
                             </div>
                         </div>
                     ))}
-                </>}
+            </>}
 
             {isFav == "list" &&
                 <>
@@ -40,7 +40,7 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
                             </div>
                         </>
                     ))}
-                </>}
+            </>}
 
             {isFav == "folderSelect" &&
                 <>

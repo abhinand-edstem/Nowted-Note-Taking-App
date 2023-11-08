@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 
 import Category from "../components/Category";
@@ -6,7 +7,6 @@ import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
 import { getNotes, noteDelete } from "../store/allNotes/NotesActions";
 import { getFolder } from "../store/allFolder/FolderAction";
-import axios from "axios";
 
 
 const HomePage = () => {

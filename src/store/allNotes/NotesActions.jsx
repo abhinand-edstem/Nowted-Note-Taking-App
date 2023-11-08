@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getNotes = createAsyncThunk("note/getNotes", async (reqData, { rejectWithValue }) => {
     try {

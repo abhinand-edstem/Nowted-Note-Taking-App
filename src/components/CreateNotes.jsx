@@ -1,15 +1,18 @@
 // eslint-disable-next-line react/prop-types
-const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick,validateForm }) => {
+const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick, validateForm }) => {
 
+
+    console.warn({ allFolderLists });
 
     const handleDropdownChange = (e) => {
+        debugger;
         setfolders(e.target.value);
     }
 
     const handleClick = () => {
         validateForm();
         // saveNotes();
-      }
+    }
 
     return (
         <div className='my-5 mr-8 h-full h-[100vh] overflow-auto'>
@@ -38,16 +41,16 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
                     </textarea>
                 </div>
                 <div className="flex space-x-5 ml-5">
-                    <select className="w-24 rounded" onChange={handleDropdownChange}>
-
-                        {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
+                    <select className="w-32 rounded" onChange={handleDropdownChange}>
+                        <option value="">Select Folder</option>
+                        {Array.isArray(allFolderLists) && allFolderLists.map((item, index) => (
                             <>
-                                <option key={index} value={item?.id}>{item?.name}</option>
+                                <option key={item?.id} value={item?.id}>{item?.name}</option>
                             </>
                         ))}
                     </select>
                     <div className="ml-4">
-                    <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white mx-4" onClick={handleClick}>Save</button>                        {action == "edit" && <>
+                        <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white mx-4" onClick={handleClick}>Save</button>                        {action == "edit" && <>
                             <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white" onClick={onEditClick}>cancel</button>
                         </>}
                     </div>
