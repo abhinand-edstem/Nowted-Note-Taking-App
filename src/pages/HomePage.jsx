@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import Category from "../components/Category";
@@ -7,6 +7,7 @@ import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
 import { getNotes, noteDelete } from "../store/allNotes/NotesActions";
 import { getFolder } from "../store/allFolder/FolderAction";
+import { addToArchive, favDelete, updateNote } from "../serviceFile.jsx";
 
 
 const HomePage = () => {
@@ -68,7 +69,7 @@ const HomePage = () => {
             saveNotes();
         }
         else {
-            alert('Invalid Form fill both Title , Desc & Option select')
+            alert('Invalid Form fill Title , Desc & Option select')
         }
     }
 
@@ -121,9 +122,7 @@ const HomePage = () => {
                     // name: "folder3"
                 }
             }
-            axios.put(`http://localhost:8080/v1/notes/${id}`,
-                params
-            )
+            updateNote(params, id);
         }
         else {
             let params = {
@@ -145,7 +144,6 @@ const HomePage = () => {
         setTitle(selected?.title);
         setcreatedDate(selected?.createdDate);
         setfolders(selected?.folderId);
-        // setedit(true)
         setid(selected?.id);
     }
 
@@ -161,14 +159,7 @@ const HomePage = () => {
     }
 
     const favItems = (selected) => {
-        if(selected.favorite){
-            axios.delete(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
-        } else {
-            axios.put(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
-        }
-        // setTimeout(() => {
-        //     setselected();
-        // }, 200);
+        favDelete(selected);
     }
 
     const favBtnClick = () => {
@@ -179,7 +170,7 @@ const HomePage = () => {
     }
 
     const ArchivedItesm = (id) => {
-        axios.put(`http://localhost:8080/v1/notes/${id}/archive`)
+        addToArchive(id);
     }
 
     return (
@@ -223,8 +214,6 @@ const HomePage = () => {
                     setIsOpen={setIsOpen}
                     selected={selected}
                     createdDate={createdDate}
-                    setcreatedDate={setcreatedDate}
-                    folders={folders}
                     setfolders={setfolders}
                     editHandler={editHandler}
                     editToggle={editToggle}

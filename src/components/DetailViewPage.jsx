@@ -7,7 +7,7 @@ import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-
 
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, folders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm,sudenUpdate }) => {
+const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm }) => {
 
     console.warn({selected});
 

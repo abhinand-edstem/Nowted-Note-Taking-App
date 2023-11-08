@@ -5,7 +5,6 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
     console.warn({ allFolderLists });
 
     const handleDropdownChange = (e) => {
-        debugger;
         setfolders(e.target.value);
     }
 
