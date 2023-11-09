@@ -9,12 +9,14 @@ const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav,
         setIsClicked(note?.id);
     }
 
+    console.warn({notes});
+
     return (
         <div className="bg-[#1C1C1C] p-3 h-full">
             
             {isFav == "list" &&
                 <>
-                    <p className='text-white text-lg font-semibold my-6 mx-2'>All Notes</p>
+                    <p className='text-white text-lg font-semibold my-6 mx-2'></p>
                     {notes && notes.length > 0 && notes.map((note, index) => (
                         <>
                             <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#333333] w-full h-20 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : "bg-[#333333]"}`}>

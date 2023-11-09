@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const favDelete = (selected) => {
+    debugger;
     if (selected.favorite) {
         axios.delete(`http://localhost:8080/v1/notes/${selected.id}/favorite`)
     } else {

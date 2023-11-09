@@ -161,6 +161,7 @@ const HomePage = () => {
     }
 
     const favItems = (selected) => {
+        debugger;
         favDelete(selected);
     }
 
