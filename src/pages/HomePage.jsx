@@ -1,14 +1,12 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { addToArchive, delectedNote, favButtonClick, favDelete, updateNote } from "../serviceFile.jsx";
 
 import Category from "../components/Category";
 import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
-import { getNotes, noteDelete } from "../store/allNotes/NotesActions";
+import { getNotes } from "../store/allNotes/NotesActions";
 import { getFolder } from "../store/allFolder/FolderAction";
-import { favDelete, updateNote } from "../serviceFile.jsx";
-import { getArchived } from "../store/allArchive/ArchiveActions.jsx";
 
 
 const HomePage = () => {
@@ -149,8 +147,7 @@ const HomePage = () => {
         let params = {
             id: selected.id
         }
-        // dispatch(noteDelete(params))
-        axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`).then((res=>{
+        delectedNote(params).then((res=>{
             const id = res.data.id;
             setNotes(notes.filter(item => item.id != id))
         }))
@@ -161,19 +158,18 @@ const HomePage = () => {
     }
 
     const favItems = (selected) => {
-        debugger;
         favDelete(selected);
     }
 
     const favBtnClick = () => {
-        axios.get("http://localhost:8080/v1/notes/favorites").then((res => {
+        favButtonClick().then((res =>{
             setNotes(res?.data)
         }))
     }
 
     const ArchivedItesm = (id) => {
-        // dispatch(getArchived(id));
-        axios.put(`http://localhost:8080/v1/notes/${id}/archive`).then((res=>{
+        addToArchive(id).then((res=>{
+            console.log({res});
             const id = res.data.id;
             setNotes(notes.filter(item => item.id != id))
         }))
@@ -203,7 +199,6 @@ const HomePage = () => {
                     setNotes={setNotes}
                     selected={selected}
                     setselected={setselected}
-                    // favorites={favorites}
                     isFav={isFav}
                     folderNotes={folderNotes}
                 />

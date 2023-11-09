@@ -5,14 +5,10 @@ import { FaSearch, FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
 import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOutlineStar } from 'react-icons/ai';
 import { BiTrashAlt } from 'react-icons/bi';
-import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
     const navigate = useNavigate();
-
-    // console.log({allFolderLists});
-
 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);

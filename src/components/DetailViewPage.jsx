@@ -30,7 +30,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
 
     const handleStarClicked = (selected) => {
         favItems(selected)
-        setstar(false);
+        setstar(true);
     }
     return (
         <div className="p-2 bg-[#181818] h-full h-[100vh] overflow-y-auto">
