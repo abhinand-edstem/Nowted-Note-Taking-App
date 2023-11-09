@@ -8,9 +8,9 @@ export const favDelete = (selected) => {
     }
 }
 
-export const addToArchive = (id) => {
-    axios.put(`http://localhost:8080/v1/notes/${id}/archive`)
-}
+// export const addToArchive = (id) => {
+//     axios.put(`http://localhost:8080/v1/notes/${id}/archive`)
+// }
 
 export const updateNote = (params,id) => {
     axios.put(`http://localhost:8080/v1/notes/${id}`,

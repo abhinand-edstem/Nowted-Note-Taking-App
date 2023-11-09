@@ -7,7 +7,8 @@ import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
 import { getNotes, noteDelete } from "../store/allNotes/NotesActions";
 import { getFolder } from "../store/allFolder/FolderAction";
-import { addToArchive, favDelete, updateNote } from "../serviceFile.jsx";
+import { favDelete, updateNote } from "../serviceFile.jsx";
+import { getArchived } from "../store/allArchive/ArchiveActions.jsx";
 
 
 const HomePage = () => {
@@ -148,7 +149,7 @@ const HomePage = () => {
         let params = {
             id: selected.id
         }
-        dispatch(noteDelete(params))
+        // dispatch(noteDelete(params))
         axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`).then((res=>{
             const id = res.data.id;
             setNotes(notes.filter(item => item.id != id))
@@ -170,7 +171,11 @@ const HomePage = () => {
     }
 
     const ArchivedItesm = (id) => {
-        addToArchive(id);
+        // dispatch(getArchived(id));
+        axios.put(`http://localhost:8080/v1/notes/${id}/archive`).then((res=>{
+            const id = res.data.id;
+            setNotes(notes.filter(item => item.id != id))
+        }))
     }
 
     return (
