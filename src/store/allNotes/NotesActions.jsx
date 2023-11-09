@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getNotes = createAsyncThunk("note/getNotes", async (reqData, { rejectWithValue }) => {
+export const    getNotes = createAsyncThunk("note/getNotes", async (reqData, { rejectWithValue }) => {
     try {
         if (!reqData) {
             const { data } = await axios.get("http://localhost:8080/v1/notes");
@@ -31,7 +31,7 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
         let params = {
             id: reqData.id
         }
-        const { data } = await axios.post(`http://localhost:8080/v1/trash/${params.id}`)
+        const { data } = await axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`)
         return data;
 
     } catch (error) {

@@ -12,6 +12,8 @@ const TrashPage = () => {
     },[])
 
     const allTrash = useSelector((store) => store.trash.trash);
+
+    console.log({allTrash});
     const handleRestore = (id) =>{
         dispatch(getTrash(id))
         setTimeout(()=>{
@@ -20,7 +22,6 @@ const TrashPage = () => {
     }
 
     const handleDelete = (id) =>{
-        debugger;
         dispatch(deleteTrash(id));
         setTimeout(()=>{
             dispatch(getTrash()); 
@@ -36,7 +37,7 @@ const TrashPage = () => {
                     <>
                         <div className='border border-black w-[30vw] h-auto m-5 rounded'>
                             <div className='flex justify-between px-4 my-4'>
-                                <h1 className="font-bold text-xl">{item?.note?.title}</h1>
+                                <h1 className="font-bold text-xl">{item?.title}</h1>
                                 <div>
                                 <button onClick={()=>handleRestore(item?.id)} className="bg-blue-500 p-2 rounded mx-2">Restore</button>
                                 <button onClick={()=>handleDelete(item?.id)} className="bg-blue-500 p-2 rounded">Delete</button>
@@ -44,7 +45,7 @@ const TrashPage = () => {
                             </div>
 
                             <div className="px-4 mb-4">
-                                <p>{item?.note?.content}</p>
+                                <p>{item?.content}</p>
                             </div>
 
                         </div>

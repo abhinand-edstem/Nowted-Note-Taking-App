@@ -4,10 +4,10 @@ import axios from 'axios';
 export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { rejectWithValue }) => {
     try {
         if (!reqData) {
-            const { data } = await axios.get("http://localhost:8080/v1/trash");
+            const { data } = await axios.get("http://localhost:8080/v1/notes/trashed");
             return data;
         } else {
-            const { data } = await axios.put(`http://localhost:8080/v1/trash/${reqData}/restore`);
+            const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/trash`);
             return data;
         }
 
@@ -22,8 +22,7 @@ export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { reje
 
 export const deleteTrash = createAsyncThunk("note/deleteTrash", async (reqData, { rejectWithValue }) => {
     try {
-        debugger;
-            const { data } = await axios.delete(`http://localhost:8080/v1/trash/${reqData}`);
+            const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/delete`);
             return data;
 
     } catch (error) {

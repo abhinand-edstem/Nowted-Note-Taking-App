@@ -27,7 +27,7 @@ const HomePage = () => {
     const [folderNotes, setFolderNotes] = useState({})
     const [editToggle, setEditToggle] = useState(null);
 
-    const [favorites, setfavorites] = useState(null);
+    // const [favorites, setfavorites] = useState(null);
     const [isFav, setisFav] = useState("list");
 
     const [folderSelect, setfolderSelect] = useState("")
@@ -43,9 +43,6 @@ const HomePage = () => {
     //get value from store
     const allNotes = useSelector((store) => store.note.notes);
     const allFolder = useSelector((store) => store.folder.folder);
-
-    console.log({ allFolder });
-
 
     const fetchData = async () => {
         if (allNotes.length > 0) {
@@ -152,6 +149,10 @@ const HomePage = () => {
             id: selected.id
         }
         dispatch(noteDelete(params))
+        axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`).then((res=>{
+            const id = res.data.id;
+            setNotes(notes.filter(item => item.id != id))
+        }))
         setTimeout(() => {
             setselected();
             dispatch(getNotes());
@@ -164,8 +165,7 @@ const HomePage = () => {
 
     const favBtnClick = () => {
         axios.get("http://localhost:8080/v1/notes/favorites").then((res => {
-            setfavorites(res?.data)
-            setisFav("fav")
+            setNotes(res?.data)
         }))
     }
 
@@ -197,7 +197,7 @@ const HomePage = () => {
                     setNotes={setNotes}
                     selected={selected}
                     setselected={setselected}
-                    favorites={favorites}
+                    // favorites={favorites}
                     isFav={isFav}
                     folderNotes={folderNotes}
                 />

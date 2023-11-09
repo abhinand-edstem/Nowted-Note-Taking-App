@@ -26,7 +26,6 @@ const TrashSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(deleteTrash.fulfilled, (state, actions) => {
-            debugger;
             state.trash = actions.payload;
         });
         builder.addCase(deleteTrash.rejected, (state, { payload }) => {
