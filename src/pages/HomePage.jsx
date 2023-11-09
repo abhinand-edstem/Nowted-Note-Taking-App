@@ -19,16 +19,11 @@ const HomePage = () => {
     const [createdDate, setcreatedDate] = useState();
     const [selected, setselected] = useState();
     const [id, setid] = useState();
-
     const [folders, setfolders] = useState([])
-
     const [notes, setNotes] = useState([]);
     const [folderNotes, setFolderNotes] = useState({})
     const [editToggle, setEditToggle] = useState(null);
-
-    // const [favorites, setfavorites] = useState(null);
     const [isFav, setisFav] = useState("list");
-
     const [folderSelect, setfolderSelect] = useState("")
     const [newFolders, setnewFolders] = useState("")
     const [allFolderLists, setallFolderLists] = useState()
@@ -42,6 +37,12 @@ const HomePage = () => {
     //get value from store
     const allNotes = useSelector((store) => store.note.notes);
     const allFolder = useSelector((store) => store.folder.folder);
+
+    useEffect(() => {
+        dispatch(getNotes());
+        dispatch(getFolder());
+        setallFolderLists(allfolders);
+    }, []);
 
     const fetchData = async () => {
         if (allNotes.length > 0) {
@@ -68,12 +69,6 @@ const HomePage = () => {
             alert('Invalid Form fill Title , Desc & Option select')
         }
     }
-
-    useEffect(() => {
-        dispatch(getNotes());
-        dispatch(getFolder());
-        setallFolderLists(allfolders);
-    }, []);
 
     useEffect(()=>{
         setallFolderLists(allFolder)

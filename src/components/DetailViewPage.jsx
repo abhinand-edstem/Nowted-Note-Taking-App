@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CreateNote from './CreateNotes';
 import { HiOutlineArchiveBoxArrowDown } from 'react-icons/hi2';
@@ -15,6 +15,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
 
+
     const onEditClick = () => {
         editHandler(selected);
         setIsOpen(!isOpen);
@@ -30,7 +31,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
 
     const handleStarClicked = (selected) => {
         favItems(selected)
-        setstar(true);
+        setstar(!star);
     }
     return (
         <div className="p-2 bg-[#181818] h-full h-[100vh] overflow-y-auto">

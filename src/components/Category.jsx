@@ -19,7 +19,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
 
     const handleFolderClick = (item) =>{
         setfolderSelect(item?.name)
-        setfolderOpen(!folderOpen)
+        setfolderOpen(item?.id)
     }
 
     const handleclick = (event, note) => {
@@ -85,7 +85,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                 {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                     <>
                         <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={() => handleFolderClick(item)} >
-                            {folderOpen ? <>
+                            {folderOpen == item?.id ? <>
                                 <AiFillFolderOpen className='mt-1' />
                             </> : 
                             <>
