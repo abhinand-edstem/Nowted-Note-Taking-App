@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav, folderNotes }) => {
+const FolderListing = ({ notes, setselected, selected, favoritesBtnClick, isFav, folderNotes,setIsOpen }) => {
 
     const [isClicked, setIsClicked] = useState();
     
     const handleFolderClick = (event, note) => {
         setselected(note);
         setIsClicked(note?.id);
+        setIsOpen(false);
     }
 
     console.warn({notes});

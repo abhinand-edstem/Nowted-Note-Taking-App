@@ -184,7 +184,7 @@ const HomePage = () => {
 
                 />
             </div>
-            <div className="flex-initial w-3/12 overflow-y-scroll h-[100vh] bg-[#1C1C1C]">
+            <div className="flex-initial w-3/12 overflow-y-auto h-[100vh] bg-[#1C1C1C]">
                 <FolderListing
                     notes={notes}
                     setNotes={setNotes}
@@ -192,6 +192,7 @@ const HomePage = () => {
                     setselected={setselected}
                     isFav={isFav}
                     folderNotes={folderNotes}
+                    setIsOpen={setIsOpen}
                 />
             </div>
             <div className="flex-initial w-6/12">

@@ -17,7 +17,10 @@
   }
 
   .nowted-title {
+    color: #FFF;
     font-family: Kaushan Script;
-    font-size: 32px;
-    color: #fff;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }

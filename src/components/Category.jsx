@@ -36,17 +36,22 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
         setinputbox(!inputbox);
     }
 
+    const addNewNotes = () =>{
+        setIsOpen(!isOpen)
+        setselected("")
+    }
+
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
             <div className="flex justify-between px-1 my-6">
                 <div className='relative'><h2 className="nowted-title">nowted</h2>
-                    <p className='text-[#747474] absolute left-[110px] font-["Kaushan"] top-0'><FaPen /></p>
+                    <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
                 <div><FaSearch className='text-[#747474] text-2xl m-2' /></div>
             </div>
 
             <div className='flex justify-center'>
-                <button onClick={() => setIsOpen(!isOpen)} className='bg-[#242424] w-[90%] h-14 text-xl font-normal text-white'><span> + </span> Add Notes</button>
+                <button onClick={addNewNotes} className='bg-[#242424] w-[90%] h-14 text-xl font-normal text-white'><span> + </span> Add Notes</button>
             </div>
 
             <div className='my-6 mx-2' >
