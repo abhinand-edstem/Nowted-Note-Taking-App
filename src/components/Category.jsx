@@ -39,24 +39,24 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
             <div className="flex justify-between px-1 my-6">
-                <div className='relative'><h2 className="font-Kaushan Script text-white text-3xl">nowted</h2>
-                    <p className='text-white absolute left-[110px] font-["Kaushan"] top-0'><FaPen /></p>
+                <div className='relative'><h2 className="nowted-title">nowted</h2>
+                    <p className='text-[#747474] absolute left-[110px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
-                <div><FaSearch className='text-white text-2xl m-2' /></div>
+                <div><FaSearch className='text-[#747474] text-2xl m-2' /></div>
             </div>
 
             <div className='flex justify-center'>
-                <button onClick={() => setIsOpen(!isOpen)} className='bg-[#9ca3af] w-[90%] h-12 text-xl font-semibold text-white'><span> + </span> Add Notes</button>
+                <button onClick={() => setIsOpen(!isOpen)} className='bg-[#242424] w-[90%] h-14 text-xl font-normal text-white'><span> + </span> Add Notes</button>
             </div>
 
             <div className='my-6 mx-2' >
-                <p className='text-[#8c8c8c] text-lg font-semibold'>Recents</p>
+                <p className='text-[#9d9d9d] text-lg font-semibold'>Recents</p>
                 <div>
                     {recentNotes.map((note) => (
                         <>
-                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#8c8c8c] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
-                                <CgNotes className='text-white text-2xl' />
-                                <p>{note?.title.substring(0, 20)}</p>
+                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
+                                <CgNotes className={`text-[#747474] text-2xl`} />
+                                <p className='text-white'>{note?.title.substring(0, 20)}</p>
                             </div>
                         </>
                     ))}
@@ -65,18 +65,18 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
 
             <div className='my-6 mx-2'>
                 <div className='flex justify-between'>
-                    <p className='text-[#8c8c8c] text-lg font-semibold'>Folder</p>
-                    <AiOutlineFolderAdd onClick={createNewFolder} className='text-white cursor-pointer w-6 h-6' />
+                    <p className='text-[#9d9d9d] text-lg font-semibold'>Folder</p>
+                    <AiOutlineFolderAdd onClick={createNewFolder} className='text-[#747474] cursor-pointer w-6 h-6' />
                 </div>
                 {inputbox && <>
                     <div className='flex'>
-                        <AiFillFolderOpen  className='text-white w-6 h-6 mt-3'/>
+                        <AiFillFolderOpen  className='text-[#747474] w-6 h-6 mt-3'/>
                         <input
                             value={newFolders}
                             maxLength={20}
                             placeholder="Title for the Folder"
                             onChange={(e) => setnewFolders(e.target.value)}
-                            className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-white placeholder-white'
+                            className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-[#747474] placeholder-white'
                         />
                         <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-3'>Add</button>
                     </div>
@@ -84,7 +84,7 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
                 </>}
                 {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                     <>
-                        <div className='flex justify-start space-x-4 text-[#8c8c8c] my-4 cursor-pointer' key={index} onClick={() => handleFolderClick(item)} >
+                        <div className='flex justify-start space-x-4 text-[#9d9d9d] my-4 cursor-pointer' key={index} onClick={() => handleFolderClick(item)} >
                             {folderOpen == item?.id ? <>
                                 <AiFillFolderOpen className='mt-1' />
                             </> : 
@@ -99,17 +99,17 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
             </div>
 
             <div className='my-6 mx-2'>
-                <p className='text-[#8c8c8c] text-lg font-semibold'>More</p>
+                <p className='text-[#9d9d9d] text-lg font-semibold'>More</p>
                 <div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] border-red-300 my-4 cursor-pointer' onClick={favBtnClick}>
+                    <div className='flex justify-start space-x-4 text-[#9d9d9d] border-red-300 my-4 cursor-pointer' onClick={favBtnClick}>
                         <AiOutlineStar className='mt-1' />
                         <p>Favorites</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={() => navigate("/trash")}>
+                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={() => navigate("/trash")}>
                         <BiTrashAlt className='mt-1' />
                         <p>Trash</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#8c8c8c] cursor-pointer my-4' onClick={() => navigate("/archive")}>
+                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={() => navigate("/archive")}>
                         <AiFillDelete className='mt-1' />
                         <p>Archived Notes</p>
                     </div>

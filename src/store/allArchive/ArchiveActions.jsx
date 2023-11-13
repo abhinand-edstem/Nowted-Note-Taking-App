@@ -22,7 +22,6 @@ export const getArchived = createAsyncThunk("note/getArchived", async (reqData, 
 
 
 export const restoreArchive = createAsyncThunk("note/restoreArchive", async (reqData, { rejectWithValue }) => {
-    debugger;
     try {
             const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/archive`);
             return data;

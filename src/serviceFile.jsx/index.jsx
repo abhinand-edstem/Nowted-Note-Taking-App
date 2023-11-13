@@ -18,6 +18,7 @@ export const addToArchive = async (id) => {
 }
 
 export const updateNote = (params, id) => {
+    debugger;
     axios.put(`http://localhost:8080/v1/notes/${id}`,
         params
     )

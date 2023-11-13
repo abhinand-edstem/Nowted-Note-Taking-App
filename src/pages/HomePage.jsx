@@ -62,7 +62,7 @@ const HomePage = () => {
     }
 
     function validateForm() {
-        if (title.length > 0 && inputText.length > 0 && folders.length > 0) {
+        if (title.length > 0 && inputText.length > 0) {
             saveNotes();
         }
         else {
@@ -108,10 +108,7 @@ const HomePage = () => {
                 title: title,
                 content: inputText,
                 createdDate: formattedDate,
-                folder: {
-                    id: folders,
-                    // name: "folder3"
-                }
+                folderId: folders,
             }
             updateNote(params, id);
         }
@@ -121,8 +118,7 @@ const HomePage = () => {
                 content: inputText,
                 createdDate: formattedDate,
                 folder: {
-                    id: folders,
-                    // name: "folder3"
+                    id: folders
                 }
             }
             dispatch(getNotes(params));
@@ -218,6 +214,7 @@ const HomePage = () => {
                     ArchivedItesm={ArchivedItesm}
                     allFolderLists={allFolderLists}
                     validateForm={validateForm}
+                    folders={folders}
                 />
             </div>
         </div>

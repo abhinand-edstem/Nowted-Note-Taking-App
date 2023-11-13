@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import TrashPage from './pages/TrashPage';
 import ArchivedPage from './pages/ArchivedPage';
 
-function App() {
+function App() { 
   return (
     <div className='h-[100vh] overflow-y-auto'>
       <BrowserRouter>

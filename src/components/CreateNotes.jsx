@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick, validateForm }) => {
+const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick, validateForm, folders}) => {
 
 
     console.warn({ allFolderLists });
@@ -41,7 +41,7 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
                 </div>
                 <div className="flex space-x-5 ml-5">
                     <select className="w-32 rounded" onChange={handleDropdownChange}>
-                        <option value="">Select Folder</option>
+                        <option value={folders}>Select Folder</option>
                         {Array.isArray(allFolderLists) && allFolderLists.map((item, index) => (
                             <>
                                 <option key={item?.id} value={item?.id}>{item?.name}</option>

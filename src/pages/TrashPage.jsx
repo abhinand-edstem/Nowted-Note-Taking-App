@@ -1,37 +1,42 @@
 import { useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTrash, getTrash } from "../store/allTrash/TrashActions";
+import { deleteTrash, getTrash } from "../store/allNotes/NotesActions";
 
 const TrashPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-       dispatch(getTrash()); 
-    },[])
+    useEffect(() => {
+        dispatch(getTrash());
+    }, [])
 
-    const allTrash = useSelector((store) => store.trash.trash);
+    const allTrash = useSelector((store) => store.note.notes);
 
-    console.log({allTrash});
-    const handleRestore = (id) =>{
-        dispatch(getTrash(id))
-        setTimeout(()=>{
-            dispatch(getTrash()); 
-        },100)
+    function refreshPage() {
+        setTimeout(() => {
+            dispatch(getTrash());
+        }, 100)
     }
 
-    const handleDelete = (id) =>{
-        dispatch(deleteTrash(id));
-        setTimeout(()=>{
-            dispatch(getTrash()); 
-        },100)
+    const handleRestore = (id) => {
+        dispatch(getTrash(id))
+        refreshPage();
+    }
+
+    const handleDelete = (id) => {
+        dispatch(deleteTrash(id))
+        refreshPage();
+    }
+
+    const navigateToHomePage = () => {
+        navigate("/")
     }
 
     return (
         <>
             <h2 className="my-4 text-center text-3xl">Trash Items</h2>
-            <button className="bg-blue-500 p-2 rounded mx-5" onClick={() => navigate("/")}>Back to Home</button>
+            <button className="bg-blue-500 p-2 rounded mx-5" onClick={navigateToHomePage}>Back to Home</button>
             <div className="flex flex-wrap">
                 {allTrash && allTrash.length && allTrash.map((item) => (
                     <>
@@ -39,8 +44,8 @@ const TrashPage = () => {
                             <div className='flex justify-between px-4 my-4'>
                                 <h1 className="font-bold text-xl">{item?.title}</h1>
                                 <div>
-                                <button onClick={()=>handleRestore(item?.id)} className="bg-blue-500 p-2 rounded mx-2">Restore</button>
-                                <button onClick={()=>handleDelete(item?.id)} className="bg-blue-500 p-2 rounded">Delete</button>
+                                    <button onClick={() => handleRestore(item?.id)} className="bg-blue-500 p-2 rounded mx-2">Restore</button>
+                                    <button onClick={() => handleDelete(item?.id)} className="bg-blue-500 p-2 rounded">Delete</button>
                                 </div>
                             </div>
 

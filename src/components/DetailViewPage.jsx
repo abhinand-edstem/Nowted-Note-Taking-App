@@ -7,9 +7,9 @@ import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-
 
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm }) => {
+const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
 
-    console.warn({selected});
+    console.warn({ selected });
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
@@ -49,6 +49,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                             <AiOutlineDelete onClick={() => deleteNote(selected)} className='text-white mt-8 text-base cursor-pointer' />
                             <AiOutlineEdit onClick={onEditClick} className='text-white m-8 text-base cursor-pointer' />
                             <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected?.favorite || star ? 'text-yellow-500' : ''} }`} />
+
                         </div>
 
                     </div>
@@ -56,7 +57,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                     <div className='flex justify-start space-x-14 ml-6'>
                         <div className='flex justify-start space-x-4'>
                             <BsCalendarDate className='text-white mt-1 text-base' />
-                            <p className='text-white font-normal'>Date</p>
+                            <p className='text-[#989898] font-normal'>Date</p>
                         </div>
                         <div>
                             <p className='text-white font-normal'>{selected.createdDate}</p>
@@ -68,7 +69,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                     <div className='flex justify-start space-x-14 ml-6 mt-5'>
                         <div className='flex justify-start space-x-4'>
                             <AiFillFolder className='text-white mt-1 text-base' />
-                            <p className='text-white font-normal'>folder</p>
+                            <p className='text-[#989898] font-normal'>folder</p>
                         </div>
                         <div>
                             <p className='text-white font-normal'>{selected?.folderName}</p>
@@ -117,6 +118,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                         onEditClick={onEditClick}
                         action="add"
                         validateForm={validateForm}
+                        folders={folders}
                     />
                 </>
             }
@@ -130,6 +132,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
                     allFolderLists={allFolderLists}
                     action="edit"
                     validateForm={validateForm}
+                    folders={folders}
 
                 />
             </> : <>

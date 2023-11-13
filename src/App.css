@@ -15,3 +15,9 @@
   .full_view > p {
     padding: 10px 20px;
   }
+
+  .nowted-title {
+    font-family: Kaushan Script;
+    font-size: 32px;
+    color: #fff;
+  }
