@@ -38,7 +38,7 @@ const TrashPage = () => {
             <h2 className="my-4 text-center text-3xl">Trash Items</h2>
             <button className="bg-blue-500 p-2 rounded mx-5" onClick={navigateToHomePage}>Back to Home</button>
             <div className="flex flex-wrap">
-                {allTrash && allTrash.length && allTrash.map((item) => (
+                {allTrash && allTrash.length > 0 && allTrash.map((item) => (
                     <>
                         <div className='border border-black w-[30vw] h-auto m-5 rounded'>
                             <div className='flex justify-between px-4 my-4'>

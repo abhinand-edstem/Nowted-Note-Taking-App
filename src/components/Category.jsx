@@ -5,17 +5,21 @@ import { FaSearch, FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
 import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOutlineStar } from 'react-icons/ai';
 import { BiTrashAlt } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
+const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
     const navigate = useNavigate();
+
+    const allNotes = useSelector((store) => store.note.notes);
+
 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
 
     // eslint-disable-next-line react/prop-types
-    const recentNotes = notes.slice(-3);
+    const recentNotes = allNotes && allNotes.length > 0 && allNotes.slice(-3);
 
     const handleFolderClick = (item) =>{
         setfolderSelect(item?.name)
@@ -57,11 +61,11 @@ const Category = ({ setIsOpen, isOpen, notes, setselected, favBtnClick, setfolde
             <div className='my-6 mx-2' >
                 <p className='text-[#9d9d9d] text-lg font-semibold'>Recents</p>
                 <div>
-                    {recentNotes.map((note) => (
+                    {recentNotes && recentNotes.length > 0 && recentNotes.map((note) => (
                         <>
                             <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
                                 <CgNotes className={`text-[#747474] text-2xl`} />
-                                <p className='text-white'>{note?.title.substring(0, 20)}</p>
+                                <p className='text-white'>{note?.title}</p>
                             </div>
                         </>
                     ))}

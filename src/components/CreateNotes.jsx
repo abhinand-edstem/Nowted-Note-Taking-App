@@ -1,20 +1,16 @@
 // eslint-disable-next-line react/prop-types
 const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick, validateForm, folders}) => {
 
-
-    console.warn({ allFolderLists });
-
     const handleDropdownChange = (e) => {
         setfolders(e.target.value);
     }
 
     const handleClick = () => {
         validateForm();
-        // saveNotes();
     }
 
     return (
-        <div className='my-5 mr-8 h-full h-[100vh] overflow-auto'>
+        <div className='my-5 mr-8 h-[100vh] overflow-auto'>
             <form>
                 <div className=''>
                     <input

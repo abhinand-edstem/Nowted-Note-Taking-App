@@ -12,8 +12,6 @@ const ArchivedPage = () => {
     }, [])
 
     const allArchived = useSelector((store) => store.archive.archived);
-
-    console.warn({allArchived});
     
     const handleRestore = (id) => {
         dispatch(restoreArchive(id));
@@ -27,7 +25,7 @@ const ArchivedPage = () => {
             <h2 className="my-4 text-center text-3xl">Archived Notes</h2>
             <button className="bg-blue-500 p-2 rounded mx-5" onClick={() => navigate("/")}>Back to Home</button>
             <div className="flex flex-wrap">
-                {allArchived && allArchived.length && allArchived.map((item) => (
+                {allArchived && allArchived.length > 0 && allArchived.map((item) => (
                     <>
                         <div className='border border-black w-[30vw] h-auto m-5 rounded'>
                             <div className='flex justify-between px-4 my-4'>

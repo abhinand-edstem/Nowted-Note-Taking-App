@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { addToArchive, delectedNote, favButtonClick, favDelete, updateNote } from "../serviceFile.jsx";
 
 import Category from "../components/Category";
 import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
-import { getNotes } from "../store/allNotes/NotesActions";
 import { getFolder } from "../store/allFolder/FolderAction";
+import { addNotes,
+    archiveItemAction,
+    favButtonClickAction,
+    favDelete,
+    getNotes,
+    moveToTrash,
+    updateNotes } from "../store/allNotes/NotesActions";
 
 
 const HomePage = () => {
@@ -29,7 +34,6 @@ const HomePage = () => {
     const [allFolderLists, setallFolderLists] = useState()
     const [initialRun, setinitialRun] = useState(true);
 
-    console.warn({ notes });
 
     //give some predefined folders
     const allfolders = [];
@@ -55,7 +59,7 @@ const HomePage = () => {
             }
         }
     };
-    
+
     //logic for avoid re render
     if (initialRun) {
         fetchData();
@@ -70,9 +74,9 @@ const HomePage = () => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setallFolderLists(allFolder)
-    },[allFolder])
+    }, [allFolder])
 
 
     const addNewFolders = () => {
@@ -80,9 +84,9 @@ const HomePage = () => {
             name: newFolders
         }
         dispatch(getFolder(params))
-        setTimeout(()=>{
+        setTimeout(() => {
             dispatch(getFolder());
-        },500)
+        }, 500)
     }
 
     useEffect(() => {
@@ -109,8 +113,9 @@ const HomePage = () => {
                 content: inputText,
                 createdDate: formattedDate,
                 folderId: folders,
+                id: id
             }
-            updateNote(params, id);
+            dispatch(updateNotes(params))
         }
         else {
             let params = {
@@ -121,7 +126,7 @@ const HomePage = () => {
                     id: folders
                 }
             }
-            dispatch(getNotes(params));
+            dispatch(addNotes(params));
         }
     }
 
@@ -138,31 +143,24 @@ const HomePage = () => {
         let params = {
             id: selected.id
         }
-        delectedNote(params).then((res=>{
-            const id = res.data.id;
-            setNotes(notes.filter(item => item.id != id))
-        }))
-        setTimeout(() => {
-            setselected();
+        dispatch(moveToTrash(params)).then((res => {
             dispatch(getNotes());
-        }, 200);
+        }))
     }
 
     const favItems = (selected) => {
-        favDelete(selected);
+        dispatch(favDelete(selected))
     }
 
     const favBtnClick = () => {
-        favButtonClick().then((res =>{
-            setNotes(res?.data)
-        }))
+        dispatch(favButtonClickAction())
+        dispatch(getNotes());
+        setisFav("fav")
     }
 
     const ArchivedItesm = (id) => {
-        addToArchive(id).then((res=>{
-            console.log({res});
-            const id = res.data.id;
-            setNotes(notes.filter(item => item.id != id))
+        dispatch(archiveItemAction(id)).then((res =>{
+            dispatch(getNotes());
         }))
     }
 
@@ -172,7 +170,6 @@ const HomePage = () => {
                 <Category
                     setIsOpen={setIsOpen}
                     isOpen={isOpen}
-                    notes={notes}
                     setselected={setselected}
                     favBtnClick={favBtnClick}
                     folderSelect={folderSelect}
@@ -186,8 +183,6 @@ const HomePage = () => {
             </div>
             <div className="flex-initial w-3/12 overflow-y-auto h-[100vh] bg-[#1C1C1C]">
                 <FolderListing
-                    notes={notes}
-                    setNotes={setNotes}
                     selected={selected}
                     setselected={setselected}
                     isFav={isFav}
@@ -201,8 +196,6 @@ const HomePage = () => {
                     setInputText={setInputText}
                     title={title}
                     setTitle={setTitle}
-                    notes={notes}
-                    setNotes={setNotes}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     selected={selected}
