@@ -21,7 +21,6 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     //states
-    const [isOpen, setIsOpen] = useState(false)
     const [inputText, setInputText] = useState("")
     const [title, setTitle] = useState("")
     const [createdDate, setcreatedDate] = useState();
@@ -181,8 +180,6 @@ const HomePage = () => {
         <div className="flex h-[100vh] overflow-y-auto">
             <div className="flex-initial w-3/12">
                 <Category
-                    setIsOpen={setIsOpen}
-                    isOpen={isOpen}
                     setselected={setselected}
                     favBtnClick={favBtnClick}
                     folderSelect={folderSelect}
@@ -203,7 +200,6 @@ const HomePage = () => {
                     setselected={setselected}
                     isFav={isFav}
                     folderNotes={folderNotes}
-                    setIsOpen={setIsOpen}
                 />
             </div>
             <div className="flex-initial w-6/12">
@@ -212,8 +208,6 @@ const HomePage = () => {
                     setInputText={setInputText}
                     title={title}
                     setTitle={setTitle}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
                     selected={selected}
                     createdDate={createdDate}
                     setfolders={setfolders}

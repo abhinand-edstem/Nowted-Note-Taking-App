@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openAddForm } from "../store/localStore/openAddForm";
 
 const FolderListing = ({ setselected, selected, favoritesBtnClick, isFav, folderNotes, setIsOpen }) => {
 
     const [isClicked, setIsClicked] = useState();
+    const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
+    
     const handleFolderClick = (event, note) => {
         setselected(note);
         setIsClicked(note?.id);
-        setIsOpen(false);
+        dispatch(openAddForm(false));
     }
     
     const favItems = allNotes.filter((item) => item.favorite == true)

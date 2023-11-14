@@ -5,12 +5,19 @@ import { HiOutlineArchiveBoxArrowDown } from 'react-icons/hi2';
 import { BsCalendarDate } from 'react-icons/bs';
 import { PiNoteThin } from 'react-icons/pi';
 import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { useDispatch, useSelector } from 'react-redux';
+import { openAddForm } from '../store/localStore/openAddForm';
 
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
+const DetailViewPage = ({ selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
 
     console.warn({ selected });
+    const dispatch = useDispatch();
+
+    const isOpen = useSelector((store) => store.open.value);
+
+    console.warn({isOpen});
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
@@ -19,7 +26,7 @@ const DetailViewPage = ({ isOpen, setIsOpen, selected, setInputText, inputText, 
 
     const onEditClick = () => {
         editHandler(selected);
-        setIsOpen(!isOpen);
+        dispatch(openAddForm(true))
     }
 
     const handleFontsizeChange = (e) => {

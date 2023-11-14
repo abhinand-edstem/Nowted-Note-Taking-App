@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { FaSearch, FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
+import { GoSearch } from "react-icons/go";
 import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOutlineStar } from 'react-icons/ai';
 import { BiTrashAlt } from 'react-icons/bi';
-import { useSelector } from 'react-redux';
+import { openAddForm } from '../store/localStore/openAddForm';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch }) => {
+const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
-
-
+ 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
@@ -28,7 +30,7 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
     }
 
     const handleclick = (event, note) => {
-        setselected(note)
+        setselected(note);
         setIsClicked(note?.id);
     }
 
@@ -42,7 +44,7 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
     }
 
     const addNewNotes = () => {
-        setIsOpen(!isOpen)
+        dispatch(openAddForm(true))
         setselected("")
     }
 
@@ -64,7 +66,7 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
                         onChange={(e) => setSearch(e.target.value)}
                         className='p-2 rounded-md m-2 w-9/12 h-10 bg-black text-[#747474] placeholder-white'
                     />
-                    <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-3'>Search</button>
+                    <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button>
                 </div>
             </>}
 
