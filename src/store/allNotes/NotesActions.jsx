@@ -184,3 +184,18 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
         }
     }
 });
+
+export const searchAction = createAsyncThunk("note/searchAction", async (reqData, { rejectWithValue }) => {
+    try {
+        debugger;
+        const { data } = await axios.get(`http://localhost:8080/v1/notes/search?query=${reqData}`)
+        return data;
+
+    } catch (error) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message);
+        } else {
+            return rejectWithValue(error.message);
+        }
+    }
+});

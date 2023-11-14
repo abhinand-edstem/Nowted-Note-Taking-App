@@ -11,6 +11,7 @@ import { addNotes,
     favDelete,
     getNotes,
     moveToTrash,
+    searchAction,
     updateNotes } from "../store/allNotes/NotesActions";
 
 
@@ -33,6 +34,7 @@ const HomePage = () => {
     const [newFolders, setnewFolders] = useState("")
     const [allFolderLists, setallFolderLists] = useState()
     const [initialRun, setinitialRun] = useState(true);
+    const [search, setSearch] = useState("")
 
 
     //give some predefined folders
@@ -150,6 +152,7 @@ const HomePage = () => {
 
     const favItems = (selected) => {
         dispatch(favDelete(selected))
+        setselected("");
     }
 
     const favBtnClick = () => {
@@ -162,6 +165,14 @@ const HomePage = () => {
         dispatch(archiveItemAction(id)).then((res =>{
             dispatch(getNotes());
         }))
+    }
+
+    
+    const handleSearch = () =>{
+        dispatch(searchAction(search))
+        setTimeout(()=>{
+            setSearch("");
+        },1000)
     }
 
     return (
@@ -178,6 +189,9 @@ const HomePage = () => {
                     newFolders={newFolders}
                     addNewFolders={addNewFolders}
                     allFolderLists={allFolderLists}
+                    setSearch={setSearch}
+                    search ={search}
+                    handleSearch={handleSearch}
 
                 />
             </div>

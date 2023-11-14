@@ -8,7 +8,7 @@ import { BiTrashAlt } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders }) => {
+const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch }) => {
     const navigate = useNavigate();
 
     const allNotes = useSelector((store) => store.note.notes);
@@ -17,11 +17,12 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
+    const [serachBox, setserachBox] = useState(false);
 
     // eslint-disable-next-line react/prop-types
     const recentNotes = allNotes && allNotes.length > 0 && allNotes.slice(-3);
 
-    const handleFolderClick = (item) =>{
+    const handleFolderClick = (item) => {
         setfolderSelect(item?.name)
         setfolderOpen(item?.id)
     }
@@ -40,19 +41,32 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
         setinputbox(!inputbox);
     }
 
-    const addNewNotes = () =>{
+    const addNewNotes = () => {
         setIsOpen(!isOpen)
         setselected("")
     }
 
+
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
-            <div className="flex justify-between px-1 my-6">
+            <div className="flex justify-between px-1 my-3">
                 <div className='relative'><h2 className="nowted-title">nowted</h2>
                     <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
-                <div><FaSearch className='text-[#747474] text-2xl m-2' /></div>
+                <div><FaSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl m-2 cursor-pointer' /></div>
             </div>
+            {serachBox && <>
+                <div className='flex mb-3'>
+                    <input
+                        value={search}
+                        maxLength={20}
+                        placeholder="Search Here"
+                        onChange={(e) => setSearch(e.target.value)}
+                        className='p-2 rounded-md m-2 w-9/12 h-10 bg-black text-[#747474] placeholder-white'
+                    />
+                    <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-3'>Search</button>
+                </div>
+            </>}
 
             <div className='flex justify-center'>
                 <button onClick={addNewNotes} className='bg-[#242424] w-[90%] h-14 text-xl font-normal text-white'><span> + </span> Add Notes</button>
@@ -79,7 +93,7 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
                 </div>
                 {inputbox && <>
                     <div className='flex'>
-                        <AiFillFolderOpen  className='text-[#747474] w-6 h-6 mt-3'/>
+                        <AiFillFolderOpen className='text-[#747474] w-6 h-6 mt-3' />
                         <input
                             value={newFolders}
                             maxLength={20}
@@ -96,11 +110,11 @@ const Category = ({ setIsOpen, isOpen, setselected, favBtnClick, setfolderSelect
                         <div className='flex justify-start space-x-4 text-[#9d9d9d] my-4 cursor-pointer' key={index} onClick={() => handleFolderClick(item)} >
                             {folderOpen == item?.id ? <>
                                 <AiFillFolderOpen className='mt-1' />
-                            </> : 
-                            <>
-                             <AiFillFolder className='mt-1' />
-                            </>}
-                           
+                            </> :
+                                <>
+                                    <AiFillFolder className='mt-1' />
+                                </>}
+
                             <p>{item?.name}</p>
                         </div>
                     </>
