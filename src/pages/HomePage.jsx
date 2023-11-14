@@ -5,14 +5,16 @@ import Category from "../components/Category";
 import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
 import { getFolder } from "../store/allFolder/FolderAction";
-import { addNotes,
+import {
+    addNotes,
     archiveItemAction,
     favButtonClickAction,
     favDelete,
     getNotes,
     moveToTrash,
     searchAction,
-    updateNotes } from "../store/allNotes/NotesActions";
+    updateNotes
+} from "../store/allNotes/NotesActions";
 
 
 const HomePage = () => {
@@ -162,17 +164,17 @@ const HomePage = () => {
     }
 
     const ArchivedItesm = (id) => {
-        dispatch(archiveItemAction(id)).then((res =>{
+        dispatch(archiveItemAction(id)).then((res => {
             dispatch(getNotes());
         }))
     }
 
-    
-    const handleSearch = () =>{
+
+    const handleSearch = () => {
         dispatch(searchAction(search))
-        setTimeout(()=>{
+        setTimeout(() => {
             setSearch("");
-        },1000)
+        }, 1000)
     }
 
     return (
@@ -190,7 +192,7 @@ const HomePage = () => {
                     addNewFolders={addNewFolders}
                     allFolderLists={allFolderLists}
                     setSearch={setSearch}
-                    search ={search}
+                    search={search}
                     handleSearch={handleSearch}
 
                 />
