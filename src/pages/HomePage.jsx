@@ -27,14 +27,12 @@ const HomePage = () => {
     const [selected, setselected] = useState();
     const [id, setid] = useState();
     const [folders, setfolders] = useState([])
-    const [notes, setNotes] = useState([]);
     const [folderNotes, setFolderNotes] = useState({})
     const [editToggle, setEditToggle] = useState(null);
     const [isFav, setisFav] = useState("list");
     const [folderSelect, setfolderSelect] = useState("")
     const [newFolders, setnewFolders] = useState("")
     const [allFolderLists, setallFolderLists] = useState()
-    const [initialRun, setinitialRun] = useState(true);
     const [search, setSearch] = useState("")
 
 
@@ -51,22 +49,6 @@ const HomePage = () => {
         setallFolderLists(allfolders);
     }, []);
 
-    const fetchData = async () => {
-        if (allNotes.length > 0) {
-            try {
-                const result = await allNotes;
-                setNotes(result);
-                setinitialRun(false);
-            } catch (error) {
-                console.error("An error occurred:", error);
-            }
-        }
-    };
-
-    //logic for avoid re render
-    if (initialRun) {
-        fetchData();
-    }
 
     function validateForm() {
         if (title.length > 0 && inputText.length > 0) {
@@ -94,7 +76,7 @@ const HomePage = () => {
 
     useEffect(() => {
         if (folderSelect) {
-            const folderSelectData = notes.filter((data) => {
+            const folderSelectData = allNotes.filter((data) => {
                 return data.folderName == folderSelect
             })
             setFolderNotes(folderSelectData);
@@ -148,6 +130,7 @@ const HomePage = () => {
         }
         dispatch(moveToTrash(params)).then((res => {
             dispatch(getNotes());
+            setselected("")
         }))
     }
 

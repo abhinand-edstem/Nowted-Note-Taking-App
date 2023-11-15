@@ -4,9 +4,13 @@ import CreateNote from './CreateNotes';
 import { HiOutlineArchiveBoxArrowDown } from 'react-icons/hi2';
 import { BsCalendarDate } from 'react-icons/bs';
 import { PiNoteThin } from 'react-icons/pi';
-import { AiFillFolder, AiFillStar, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiFillFolder} from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { openAddForm } from '../store/localStore/openAddForm';
+import starIcon from '../../public/start.png';
+import deleteIcon from '../../public/delete.png';
+import archieIcon from '../../public/archive.png';
+import editIcon from '../../public/editIcon.png';
 
 
 // eslint-disable-next-line react/prop-types
@@ -17,11 +21,16 @@ const DetailViewPage = ({ selected, setInputText, inputText, setTitle, title, cr
 
     const isOpen = useSelector((store) => store.open.value);
 
-    console.warn({isOpen});
+    console.warn({ isOpen });
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleThreeDotsClick = () => {
+        setShowDropdown(!showDropdown);
+    };
 
 
     const onEditClick = () => {
@@ -44,20 +53,81 @@ const DetailViewPage = ({ selected, setInputText, inputText, setTitle, title, cr
     return (
         <div className="bg-[#181818] h-[100vh] overflow-y-auto">
 
-            {selected && 
+            {selected &&
                 <>
                     <div>
                         <div className="my-3 ml-5 flex justify-between">
                             <h2 className="text-white text-3xl font-semibold my-6 mx-2">{selected.title}</h2>
                             <div className='flex space-x-5 pr-8'>
-                                <div className="group flex relative">
+                                {/* <div className="group flex relative">
                                     <span className=" text-white px-2 m-8 cursor-pointer"><HiOutlineArchiveBoxArrowDown onClick={() => ArchivedItesm(selected?.id)} /></span>
                                     <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
                                 -translate-x-1/2 translate-y-full opacity-0 m-8 p-2 mx-auto">Archive</span>
                                 </div>
                                 <AiOutlineDelete onClick={() => deleteNote(selected)} className='text-white mt-8 text-base cursor-pointer' />
                                 <AiOutlineEdit onClick={onEditClick} className='text-white m-8 text-base cursor-pointer' />
-                                <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected?.favorite || star ? 'text-yellow-500' : ''} }`} />
+                                <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected?.favorite || star ? 'text-yellow-500' : ''} }`} /> */}
+
+                                <div className="m-6  cursor-pointer" onClick={handleThreeDotsClick}>
+                                    <div className="bg-black border border-white text-white hover:bg-[#262626] font-semibold rounded-full p-2">
+                                        <div className="w-2 h-2  flex items-center justify-center"> <span className='font-serif mb-2'>...</span></div>
+                                    </div>
+                                </div>
+
+                                {showDropdown && (
+                                    <div className="absolute right-14 top-14 mt-2 w-48 bg-[#262626] shadow rounded-md z-10">
+                                        <ul className="py-1">
+                                            <li
+                                                onClick={() => {
+                                                    onEditClick();
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="px-4 py-2 text-white cursor-pointer hover:bg-[#171717]"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img src={editIcon} alt="Deleted" className="w-4 h-4 mr-3" /> Edit
+                                                </div>
+                                            </li>
+                                            <li
+                                                onClick={() => {
+                                                    handleStarClicked(selected)
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="px-4 py-2 text-white cursor-pointer hover:bg-[#171717]"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img src={starIcon} alt="Deleted" className="w-4 h-4 mr-3" /> Add to favorites
+                                                </div>
+                                            </li>
+
+                                            <li
+                                                onClick={() => {
+                                                    ArchivedItesm(selected.id)
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="px-4 py-2 text-white cursor-pointer hover:bg-[#171717]"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img src={archieIcon} alt="Deleted" className="w-4 h-4 mr-3" /> Archive
+                                                </div>
+                                            </li>
+                                            <hr className='w-40 m-auto' />
+
+                                            <li
+                                                onClick={() => {
+                                                    deleteNote(selected)
+                                                    setShowDropdown(false);
+                                                }}
+                                                className="px-4 py-2 text-white cursor-pointer hover:bg-[#171717]"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img src={deleteIcon} alt="Deleted" className="w-4 h-4 mr-3" /> Delete
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                )}
 
                             </div>
 
