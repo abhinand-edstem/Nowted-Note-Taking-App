@@ -1,21 +1,47 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openAddForm } from "../store/localStore/openAddForm";
+import { deleteTrash, getTrash, removeFromTrash } from "../store/allNotes/NotesActions";
+import { getArchived, restoreArchive } from "../store/allArchive/ArchiveActions";
+import { MdOutlineSettingsBackupRestore } from "react-icons/md";
+import { AiOutlineDelete } from "react-icons/ai";
 
-const FolderListing = ({ setselected, selected, favoritesBtnClick, isFav, folderNotes, setIsOpen }) => {
+
+const FolderListing = ({ setselected, isFav, folderNotes, allTrash, allArchived }) => {
 
     const [isClicked, setIsClicked] = useState();
     const dispatch = useDispatch();
-
     const allNotes = useSelector((store) => store.note.notes);
-    
+    const favItems = allNotes.filter((item) => item.favorite == true);
+    const dispalyNotes = allNotes.filter((item) => item.trash == false);
+
     const handleFolderClick = (event, note) => {
         setselected(note);
         setIsClicked(note?.id);
         dispatch(openAddForm(false));
     }
-    
-    const favItems = allNotes.filter((item) => item.favorite == true)
+
+    function refreshPage() {
+        setTimeout(() => {
+            dispatch(getTrash());
+        }, 100)
+    }
+
+    const handleRestore = (id) => {
+        dispatch(removeFromTrash(id))
+        refreshPage();
+    }
+
+    const handleDelete = (id) => {
+        dispatch(deleteTrash(id))
+        refreshPage();
+    }
+
+    const handleArchiveRestore = (id) =>{
+        dispatch(restoreArchive(id));
+        refreshPage();
+        dispatch(getArchived());
+    }
 
     return (
         <div className="bg-[#1C1C1C] p-3 h-full">
@@ -23,7 +49,7 @@ const FolderListing = ({ setselected, selected, favoritesBtnClick, isFav, folder
             {isFav == "list" &&
                 <>
                     <p className='text-[#fdfdfd] text-lg font-semibold my-6 mx-2'>All Notes</p>
-                    {allNotes && allNotes.length > 0 && allNotes.map((note, index) => (
+                    {dispalyNotes && dispalyNotes.length > 0 && dispalyNotes.map((note, index) => (
                         <>
                             <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
                                 <h1 className="text-white text-base font-semibold">{note?.title}</h1>
@@ -35,6 +61,50 @@ const FolderListing = ({ setselected, selected, favoritesBtnClick, isFav, folder
                         </>
                     ))}
                 </>}
+
+            {isFav == "trash" &&
+                <>
+                    <p className='text-[#fdfdfd] text-lg font-semibold my-6 mx-2'>All Trash</p>
+                    {allTrash && allTrash.length > 0 && allTrash.map((note, index) => (
+                        <>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
+                                <div className="flex justify-between">
+                                    <h1 className="text-white text-base font-semibold">{note?.title}</h1>
+                                    <div className="space-x-3">
+                                        <button className="bg-blue-500 p-1 rounded" onClick={() => handleRestore(note?.id)}><MdOutlineSettingsBackupRestore className="text-white" /></button>
+                                        <button className="bg-blue-500 p-1 rounded" onClick={() => handleDelete(note?.id)}><AiOutlineDelete className="text-white" /></button>
+                                    </div>
+                                </div>
+                                <div className="flex mt-3 space-x-5">
+                                    <h1 className="text-white text-sm w-20">{note?.createdDate.substring(0, 25)}</h1>
+                                    <h1 className="text-white text-sm break-words">{note?.content.substring(0, 25)}</h1>
+                                </div>
+                            </div>
+                        </>
+                    ))}
+                </>}
+
+            {isFav == "archive" &&
+                <>
+                    <p className='text-[#fdfdfd] text-lg font-semibold my-6 mx-2'>All Archived</p>
+                    {allArchived && allArchived.length > 0 && allArchived.map((note, index) => (
+                        <>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
+                                <div className="flex justify-between">
+                                    <h1 className="text-white text-base font-semibold">{note?.title}</h1>
+                                    <div className="space-x-3">
+                                        <button className="bg-blue-500 p-1 rounded" onClick={() => handleArchiveRestore(note?.id)}><MdOutlineSettingsBackupRestore className="text-white" /></button>
+                                    </div>
+                                </div>
+                                <div className="flex mt-3 space-x-5">
+                                    <h1 className="text-white text-sm w-20">{note?.createdDate.substring(0, 25)}</h1>
+                                    <h1 className="text-white text-sm break-words">{note?.content.substring(0, 25)}</h1>
+                                </div>
+                            </div>
+                        </>
+                    ))}
+                </>}
+
 
             {isFav == "fav" &&
                 <>

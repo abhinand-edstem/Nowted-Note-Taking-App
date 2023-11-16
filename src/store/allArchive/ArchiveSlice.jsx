@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getArchived } from "./ArchiveActions";
+import { getArchived, restoreArchive } from "./ArchiveActions";
 
 const ArchiveSlice = createSlice({
     name: "archived",
@@ -18,6 +18,21 @@ const ArchiveSlice = createSlice({
             state.archived = actions.payload;
         });
         builder.addCase(getArchived.rejected, (state, { payload }) => {
+            state.loading = false;
+        });
+
+        builder.addCase(restoreArchive.pending, state => {
+            state.archived = [];
+            state.loading = true;
+        });
+        builder.addCase(restoreArchive.fulfilled, (state, actions) => {
+            const {id} = actions.payload;
+
+            if(id){
+                state.archived = state.archived.filter((ele) => ele.id != id)
+            }
+        });
+        builder.addCase(restoreArchive.rejected, (state, { payload }) => {
             state.loading = false;
         });
     }

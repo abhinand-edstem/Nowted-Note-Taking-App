@@ -16,12 +16,9 @@ import editIcon from '../../public/editIcon.png';
 // eslint-disable-next-line react/prop-types
 const DetailViewPage = ({ selected, setInputText, inputText, setTitle, title, createdDate, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
 
-    console.warn({ selected });
     const dispatch = useDispatch();
 
     const isOpen = useSelector((store) => store.open.value);
-
-    console.warn({ isOpen });
 
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);

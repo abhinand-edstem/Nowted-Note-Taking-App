@@ -120,13 +120,22 @@ export const archiveItemAction = createAsyncThunk("note/archiveItemAction", asyn
 
 export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { rejectWithValue }) => {
     try {
-        if (!reqData) {
-            const { data } = await axios.get("http://localhost:8080/v1/notes/trashed");
-            return data;
+        const { data } = await axios.get("http://localhost:8080/v1/notes/trashed");
+        return data;
+    } catch (error) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message);
         } else {
-            const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/trash`);
-            return data;
+            return rejectWithValue(error.message);
         }
+    }
+});
+
+
+export const removeFromTrash = createAsyncThunk("note/removeFromTrash", async (reqData, { rejectWithValue }) => {
+    try {
+        const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/trash`);
+        return data;
 
     } catch (error) {
         if (error.response && error.response.data.message) {
@@ -136,6 +145,7 @@ export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { reje
         }
     }
 });
+
 
 export const moveToTrash = createAsyncThunk("note/moveToTrash", async (reqData, { rejectWithValue }) => {
     try {
@@ -187,7 +197,6 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
 
 export const searchAction = createAsyncThunk("note/searchAction", async (reqData, { rejectWithValue }) => {
     try {
-        debugger;
         const { data } = await axios.get(`http://localhost:8080/v1/notes/search?query=${reqData}`)
         return data;
 

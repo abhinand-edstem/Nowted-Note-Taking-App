@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addNotes, archiveItemAction, favButtonClickAction, favDelete, getNotes, getTrash, moveToTrash, searchAction, updateNotes } from "./NotesActions";
+import { addNotes, archiveItemAction, deleteTrash, favButtonClickAction, favDelete, getNotes, getTrash, moveToTrash, removeFromTrash, searchAction, updateNotes } from "./NotesActions";
 
 const NoteSlice = createSlice({
     name: "notes",
@@ -70,6 +70,35 @@ const NoteSlice = createSlice({
             }
         });
         builder.addCase(moveToTrash.rejected, (state, { payload }) => {
+            state.loading = false;
+        });
+
+
+        //remove to trash
+        builder.addCase(removeFromTrash.pending, state => {
+            state.notes = [];
+            state.loading = true;
+        });
+        builder.addCase(removeFromTrash.fulfilled, (state, actions) => {
+           state.notes.push(actions.payload);
+        });
+        builder.addCase(removeFromTrash.rejected, (state, { payload }) => {
+            state.loading = false;
+        });
+
+            //delete
+        builder.addCase(deleteTrash.pending, state => {
+            state.notes = [];
+            state.loading = true;
+        });
+        builder.addCase(deleteTrash.fulfilled, (state, actions) => {
+            const {id} = actions.payload;
+
+            if(id){
+                state.notes = state.notes.filter((ele) => ele.id != id)
+            }
+        });
+        builder.addCase(deleteTrash.rejected, (state, { payload }) => {
             state.loading = false;
         });
 

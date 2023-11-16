@@ -11,10 +11,12 @@ import {
     favButtonClickAction,
     favDelete,
     getNotes,
+    getTrash,
     moveToTrash,
     searchAction,
     updateNotes
 } from "../store/allNotes/NotesActions";
+import { getArchived } from "../store/allArchive/ArchiveActions";
 
 
 const HomePage = () => {
@@ -42,6 +44,8 @@ const HomePage = () => {
     //get value from store
     const allNotes = useSelector((store) => store.note.notes);
     const allFolder = useSelector((store) => store.folder.folder);
+    const allTrash = useSelector((store) => store.note.notes);
+    const allArchived = useSelector((store) => store.archive.archived);
 
     useEffect(() => {
         dispatch(getNotes());
@@ -145,12 +149,21 @@ const HomePage = () => {
         setisFav("fav")
     }
 
+    const TrashButtonClick = () => {
+        dispatch(getTrash());
+        setisFav("trash");
+    }
+
+    const ArchiveButtonClick = () => {
+        dispatch(getArchived());
+        setisFav("archive");
+    }
+
     const ArchivedItesm = (id) => {
         dispatch(archiveItemAction(id)).then((res => {
             dispatch(getNotes());
         }))
     }
-
 
     const handleSearch = () => {
         dispatch(searchAction(search))
@@ -174,7 +187,8 @@ const HomePage = () => {
                     setSearch={setSearch}
                     search={search}
                     handleSearch={handleSearch}
-
+                    TrashButtonClick={TrashButtonClick}
+                    ArchiveButtonClick={ArchiveButtonClick}
                 />
             </div>
             <div className="flex-initial w-3/12 overflow-y-auto h-[100vh] bg-[#1C1C1C]">
@@ -183,6 +197,8 @@ const HomePage = () => {
                     setselected={setselected}
                     isFav={isFav}
                     folderNotes={folderNotes}
+                    allTrash={allTrash}
+                    allArchived={allArchived}
                 />
             </div>
             <div className="flex-initial w-6/12">

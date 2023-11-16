@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FaSearch, FaPen } from 'react-icons/fa';
@@ -10,8 +10,8 @@ import { BiTrashAlt } from 'react-icons/bi';
 import { openAddForm } from '../store/localStore/openAddForm';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch }) => {
-    const navigate = useNavigate();
+const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch,TrashButtonClick,ArchiveButtonClick }) => {
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
@@ -130,11 +130,11 @@ const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, ne
                         <AiOutlineStar className='mt-1' />
                         <p>Favorites</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={() => navigate("/trash")}>
+                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={TrashButtonClick}>
                         <BiTrashAlt className='mt-1' />
                         <p>Trash</p>
                     </div>
-                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={() => navigate("/archive")}>
+                    <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={ArchiveButtonClick}>
                         <AiFillDelete className='mt-1' />
                         <p>Archived Notes</p>
                     </div>
