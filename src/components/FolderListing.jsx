@@ -5,9 +5,10 @@ import { deleteTrash, getTrash, removeFromTrash } from "../store/allNotes/NotesA
 import { getArchived, restoreArchive } from "../store/allArchive/ArchiveActions";
 import { MdOutlineSettingsBackupRestore } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
+import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 
 
-const FolderListing = ({ setselected, isFav, folderNotes, allTrash, allArchived }) => {
+const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
 
     const [isClicked, setIsClicked] = useState();
     const dispatch = useDispatch();
@@ -16,7 +17,8 @@ const FolderListing = ({ setselected, isFav, folderNotes, allTrash, allArchived 
     const dispalyNotes = allNotes.filter((item) => item.trash == false);
 
     const handleFolderClick = (event, note) => {
-        setselected(note);
+        // setselected(note);
+        dispatch(SelectNoteReducer(note))
         setIsClicked(note?.id);
         dispatch(openAddForm(false));
     }

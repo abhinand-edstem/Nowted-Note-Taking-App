@@ -4,6 +4,7 @@ import NotesSlice from './store/allNotes/NotesSlice';
 import FolderSlice from './store/allFolder/FolderSlice';
 import ArchiveSlice from './store/allArchive/ArchiveSlice';
 import openAddForm from './store/localStore/openAddForm';
+import SelectedNotes from './store/localStore/SelectedNotes';
 
 export const store = configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export const store = configureStore({
     folder: FolderSlice,
     archive: ArchiveSlice,
     open: openAddForm,
+    select : SelectedNotes
   },
 })

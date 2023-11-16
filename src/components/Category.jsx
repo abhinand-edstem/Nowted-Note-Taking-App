@@ -8,9 +8,10 @@ import { GoSearch } from "react-icons/go";
 import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOutlineStar } from 'react-icons/ai';
 import { BiTrashAlt } from 'react-icons/bi';
 import { openAddForm } from '../store/localStore/openAddForm';
+import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch,TrashButtonClick,ArchiveButtonClick }) => {
+const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch,TrashButtonClick,ArchiveButtonClick }) => {
     // const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -30,7 +31,8 @@ const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, ne
     }
 
     const handleclick = (event, note) => {
-        setselected(note);
+        // setselected(note);
+        dispatch(SelectNoteReducer(note))
         setIsClicked(note?.id);
     }
 
@@ -45,7 +47,8 @@ const Category = ({ setselected, favBtnClick, setfolderSelect, setnewFolders, ne
 
     const addNewNotes = () => {
         dispatch(openAddForm(true))
-        setselected("")
+        // setselected("")
+        dispatch(SelectNoteReducer())
     }
 
 

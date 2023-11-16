@@ -17,6 +17,7 @@ import {
     updateNotes
 } from "../store/allNotes/NotesActions";
 import { getArchived } from "../store/allArchive/ArchiveActions";
+import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 
 
 const HomePage = () => {
@@ -25,8 +26,6 @@ const HomePage = () => {
     //states
     const [inputText, setInputText] = useState("")
     const [title, setTitle] = useState("")
-    const [createdDate, setcreatedDate] = useState();
-    const [selected, setselected] = useState();
     const [id, setid] = useState();
     const [folders, setfolders] = useState([])
     const [folderNotes, setFolderNotes] = useState({})
@@ -123,7 +122,6 @@ const HomePage = () => {
         setEditToggle(selected?.id);
         setInputText(selected?.content);
         setTitle(selected?.title);
-        setcreatedDate(selected?.createdDate);
         setfolders(selected?.folderId);
         setid(selected?.id);
     }
@@ -134,13 +132,13 @@ const HomePage = () => {
         }
         dispatch(moveToTrash(params)).then((res => {
             dispatch(getNotes());
-            setselected("")
+            dispatch(SelectNoteReducer())
         }))
     }
 
     const favItems = (selected) => {
         dispatch(favDelete(selected))
-        setselected("");
+        dispatch(SelectNoteReducer());
     }
 
     const favBtnClick = () => {
@@ -176,7 +174,6 @@ const HomePage = () => {
         <div className="flex h-[100vh] overflow-y-auto">
             <div className="flex-initial w-3/12">
                 <Category
-                    setselected={setselected}
                     favBtnClick={favBtnClick}
                     folderSelect={folderSelect}
                     setfolderSelect={setfolderSelect}
@@ -193,8 +190,6 @@ const HomePage = () => {
             </div>
             <div className="flex-initial w-3/12 overflow-y-auto h-[100vh] bg-[#1C1C1C]">
                 <FolderListing
-                    selected={selected}
-                    setselected={setselected}
                     isFav={isFav}
                     folderNotes={folderNotes}
                     allTrash={allTrash}
@@ -207,8 +202,6 @@ const HomePage = () => {
                     setInputText={setInputText}
                     title={title}
                     setTitle={setTitle}
-                    selected={selected}
-                    createdDate={createdDate}
                     setfolders={setfolders}
                     editHandler={editHandler}
                     editToggle={editToggle}
