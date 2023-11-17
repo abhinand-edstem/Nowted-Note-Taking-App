@@ -1,16 +1,15 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CreateNote from './CreateNotes';
-import { HiOutlineArchiveBoxArrowDown } from 'react-icons/hi2';
-import { BsCalendarDate } from 'react-icons/bs';
-import { PiNoteThin } from 'react-icons/pi';
-import { AiFillFolder} from "react-icons/ai";
-import { useDispatch, useSelector } from 'react-redux';
-import { openAddForm } from '../store/localStore/openAddForm';
 import starIcon from '../../public/start.png';
 import deleteIcon from '../../public/delete.png';
 import archieIcon from '../../public/archive.png';
 import editIcon from '../../public/editIcon.png';
+import noteIcon from '../../public/noteicon.png';
+import { BsCalendarDate } from 'react-icons/bs';
+import { AiFillFolder} from "react-icons/ai";
+import { openAddForm } from '../store/localStore/openAddForm';
 
 
 // eslint-disable-next-line react/prop-types
@@ -181,7 +180,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                         <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
 
                         <div className='mt-8 mx-6'>
-                            <p className={`text-white
+                            <p className={`text-white break-words
                          ${fontSize == "15" ? 'text-[15px]' : fontSize == 18 ? 'text-[18px]' : fontSize == 20 ? 'text-[20px]' : fontSize == 22 ? 'text-[22px]' : ''} 
                          ${fontbold == "Normal" ? 'font-normal' : fontbold == "semibold" ? 'font-semibold' : fontbold == "bold" ? 'font-bold' : ''} 
                          leading-8`}>{selected.content}</p>
@@ -196,9 +195,9 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                 <>
                     <div className='grid justify-center content-center mt-[42vh]'>
                         <div className='text-center w-[100%]'>
-                            <PiNoteThin className='text-white text-6xl text-center w-[100%]' />
+                            <img src={noteIcon} className='mx-auto w-16' />
                             <h1 className='text-3xl text-white font-semibold'>Select a note to view</h1>
-                            <p className='text-white mt-2'>Choose a note from the list on the left to view its contents, or <br /> create a new note to add to your collection.</p>
+                            <p className='text-[#747474] mt-2'>Choose a note from the list on the left to view its contents, or <br /> create a new note to add to your collection.</p>
                         </div>
                     </div>
                 </>

@@ -84,7 +84,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                         <>
                             <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
                                 <CgNotes className={`text-[#747474] text-2xl`} />
-                                <p className='text-white'>{note?.title}</p>
+                                <p className='text-white'>{note?.title.substring(0,20)}</p>
                             </div>
                         </>
                     ))}

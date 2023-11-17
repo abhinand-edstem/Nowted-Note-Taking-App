@@ -45,7 +45,7 @@ const NoteSlice = createSlice({
             state.loading = false;
         });
 
-        
+        ///getTrash
         builder.addCase(getTrash.pending, state => {
             state.notes = [];
             state.loading = true;
@@ -57,6 +57,7 @@ const NoteSlice = createSlice({
             state.loading = false;
         });
 
+        ///Move To Trash
         builder.addCase(moveToTrash.pending, state => {
             state.notes = [];
             state.loading = true;
@@ -86,7 +87,7 @@ const NoteSlice = createSlice({
             state.loading = false;
         });
 
-            //delete
+         //delete
         builder.addCase(deleteTrash.pending, state => {
             state.notes = [];
             state.loading = true;

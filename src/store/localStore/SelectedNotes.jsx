@@ -9,7 +9,6 @@ export const selecetSlice = createSlice({
     initialState,
     reducers: {
         SelectNoteReducer: (state, action) => {
-            debugger;
             state.value = action.payload
         }
     },
