@@ -20,8 +20,6 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
     const isOpen = useSelector((store) => store.open.value);
     const selected = useSelector((store) => store.select.value);
 
-    console.warn({selected});
-
     const [star, setstar] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
@@ -52,7 +50,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
     return (
         <div className="bg-[#181818] h-[100vh] overflow-y-auto">
 
-            {selected &&
+            {selected && !isOpen &&
                 <>
                     <div>
                         <div className="my-3 ml-5 flex justify-between">

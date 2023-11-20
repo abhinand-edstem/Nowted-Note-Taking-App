@@ -9,7 +9,7 @@ const ArchiveSlice = createSlice({
     },
     reducers: {},
     extraReducers: builder => {
-        //get trash
+        //get Archive
         builder.addCase(getArchived.pending, state => {
             state.archived = [];
             state.loading = true;
@@ -20,7 +20,9 @@ const ArchiveSlice = createSlice({
         builder.addCase(getArchived.rejected, (state, { payload }) => {
             state.loading = false;
         });
+        
 
+        //restoreArchive
         builder.addCase(restoreArchive.pending, state => {
             state.archived = [];
             state.loading = true;
