@@ -24,3 +24,6 @@
     font-weight: 400;
     line-height: normal;
   }
+  .tox .tox-editor-container {
+    background-color: #ff0000 !important;
+  }

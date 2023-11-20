@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Editor } from '@tinymce/tinymce-react';
+import { openAddForm } from '../store/localStore/openAddForm';
 
 import CreateNote from './CreateNotes';
 import starIcon from '../../public/start.png';
@@ -8,39 +10,28 @@ import archieIcon from '../../public/archive.png';
 import editIcon from '../../public/editIcon.png';
 import noteIcon from '../../public/noteicon.png';
 import { BsCalendarDate } from 'react-icons/bs';
-import { AiFillFolder} from "react-icons/ai";
-import { openAddForm } from '../store/localStore/openAddForm';
+import { AiFillFolder } from "react-icons/ai";
 
 
 // eslint-disable-next-line react/prop-types
 const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
 
     const dispatch = useDispatch();
+    const editRef = useRef();
 
     const isOpen = useSelector((store) => store.open.value);
     const selected = useSelector((store) => store.select.value);
 
     const [star, setstar] = useState(false);
-    const [fontSize, setFontSize] = useState(16);
-    const [fontbold, setfontbold] = useState("thin");
     const [showDropdown, setShowDropdown] = useState(false);
 
     const handleThreeDotsClick = () => {
         setShowDropdown(!showDropdown);
     };
 
-
     const onEditClick = () => {
         editHandler(selected);
         dispatch(openAddForm(true))
-    }
-
-    const handleFontsizeChange = (e) => {
-        setFontSize(e.target.value);
-    }
-
-    const handletextThicknessChange = (e) => {
-        setfontbold(e.target.value);
     }
 
     const handleStarClicked = (selected) => {
@@ -56,15 +47,6 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                         <div className="my-3 ml-5 flex justify-between">
                             <h2 className="text-white text-3xl font-semibold my-6 mx-2">{selected.title}</h2>
                             <div className='flex space-x-5 pr-8'>
-                                {/* <div className="group flex relative">
-                                    <span className=" text-white px-2 m-8 cursor-pointer"><HiOutlineArchiveBoxArrowDown onClick={() => ArchivedItesm(selected?.id)} /></span>
-                                    <span className="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
-                                -translate-x-1/2 translate-y-full opacity-0 m-8 p-2 mx-auto">Archive</span>
-                                </div>
-                                <AiOutlineDelete onClick={() => deleteNote(selected)} className='text-white mt-8 text-base cursor-pointer' />
-                                <AiOutlineEdit onClick={onEditClick} className='text-white m-8 text-base cursor-pointer' />
-                                <AiFillStar onClick={() => handleStarClicked(selected)} className={`text-white m-8 text-base cursor-pointer ${selected?.favorite || star ? 'text-yellow-500' : ''} }`} /> */}
-
                                 <div className="m-6  cursor-pointer" onClick={handleThreeDotsClick}>
                                     <div className="bg-black border border-white text-white hover:bg-[#262626] font-semibold rounded-full p-2">
                                         <div className="w-2 h-2  flex items-center justify-center"> <span className='font-serif mb-2'>...</span></div>
@@ -72,7 +54,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                                 </div>
 
                                 {showDropdown && (
-                                    <div className="absolute right-14 top-14 mt-2 w-48 bg-[#262626] shadow rounded-md z-10">
+                                    <div className="absolute right-14 top-14 mt-2 w-52 bg-[#262626] shadow rounded-md z-10">
                                         <ul className="py-1">
                                             <li
                                                 onClick={() => {
@@ -93,7 +75,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                                                 className="px-4 py-2 text-white cursor-pointer hover:bg-[#171717]"
                                             >
                                                 <div className="flex items-center">
-                                                    <img src={starIcon} alt="Deleted" className="w-4 h-4 mr-3" /> Add to favorites
+                                                    <img src={starIcon} alt="Deleted" className={`w-4 h-4 mr-3 `} />{selected?.favorite == true ? 'Remove to favorites' : 'Add to favorites'}
                                                 </div>
                                             </li>
 
@@ -125,9 +107,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                                         </ul>
                                     </div>
                                 )}
-
                             </div>
-
                         </div>
 
                         <div className='flex justify-start space-x-14 ml-6'>
@@ -154,7 +134,7 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                         </div>
                         <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
 
-                        <div className='flex justify-start space-x-14 ml-6 mt-5'>
+                        {/* <div className='flex justify-start space-x-14 ml-6 mt-5'>
                             <div className='flex justify-start space-x-4'>
                                 <p className='text-white font-normal'>Paragraph</p>
                             </div>
@@ -171,21 +151,32 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
                                     <option value="semibold">Semibold</option>
                                     <option value="bold">Bold</option>
                                 </select>
-
-
                             </div>
                         </div>
-                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
+                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' /> */}
 
-                        <div className='mt-8 mx-6'>
-                            <p className={`text-white break-words
-                         ${fontSize == "15" ? 'text-[15px]' : fontSize == 18 ? 'text-[18px]' : fontSize == 20 ? 'text-[20px]' : fontSize == 22 ? 'text-[22px]' : ''} 
-                         ${fontbold == "Normal" ? 'font-normal' : fontbold == "semibold" ? 'font-semibold' : fontbold == "bold" ? 'font-bold' : ''} 
-                         leading-8`}>{selected.content}</p>
+                        <div className='px-6 mt-5'>
+                            <Editor
+                                apiKey='3kzykpgyq1g7zd2s3d2rjf4e1inhhtvdx32372esti2kitu8'
+                                initialValue={selected.content}
+                                onInit={(evt, editor) => editRef.current = editor}
+                                init={{
+                                    height: 500,
+                                    menubar: true,
+                                    plugins: [
+                                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount',
+                                    ],
+                                    toolbar: 'undo redo | blocks | ' +
+                                        'bold italic forecolor | alignleft aligncenter ' +
+                                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                                        'removeformat | help',
+                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                }}
+                            />
                         </div>
                     </div>
-
-
                 </>
             }
 
