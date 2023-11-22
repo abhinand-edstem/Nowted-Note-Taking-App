@@ -1,5 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { inputContent } from "../store/localStore/InputContent";
+import { inputTitle } from "../store/localStore/InputTitle";
+
 // eslint-disable-next-line react/prop-types
-const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allFolderLists, action, onEditClick, validateForm, folders}) => {
+const CreateNote = ({setfolders, allFolderLists, action, onEditClick, validateForm, folders}) => {
+
+    const dispatch = useDispatch();
+
+    const contentText = useSelector((store) => store.content.value);
+    const TitleText = useSelector((store) => store.title.value);
 
     const handleDropdownChange = (e) => {
         setfolders(e.target.value);
@@ -15,9 +24,9 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
                 <div className=''>
                     <input
                         type="text"
-                        value={title}
+                        value={TitleText}
                         placeholder="Title for the Note"
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e)=> dispatch(inputTitle(e.target.value))}
                         className='p-3 rounded-md m-3 w-full h-10 bg-black border-white text-white placeholder-white'
                         required
                     />
@@ -25,12 +34,12 @@ const CreateNote = ({ inputText, setInputText, setTitle, title, setfolders, allF
                 <div>
                     <textarea
                         name="text"
-                        value={inputText}
+                        value={contentText}
                         cols={20}
                         rows={15}
                         placeholder='Write here...'
                         className='p-3 rounded-md m-3 w-full bg-black border-white text-white placeholder-white'
-                        onChange={(e) => setInputText(e.target.value)}
+                        onChange={(e)=> dispatch(inputContent(e.target.value))}
                         required
                     >
                     </textarea>

@@ -5,6 +5,8 @@ import FolderSlice from './store/allFolder/FolderSlice';
 import ArchiveSlice from './store/allArchive/ArchiveSlice';
 import openAddForm from './store/localStore/openAddForm';
 import SelectedNotes from './store/localStore/SelectedNotes';
+import InputContent from './store/localStore/InputContent';
+import InputTitle from './store/localStore/InputTitle';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ export const store = configureStore({
     folder: FolderSlice,
     archive: ArchiveSlice,
     open: openAddForm,
-    select : SelectedNotes
+    select : SelectedNotes,
+    content : InputContent,
+    title : InputTitle
   },
 })

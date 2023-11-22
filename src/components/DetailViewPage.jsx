@@ -14,7 +14,7 @@ import { AiFillFolder } from "react-icons/ai";
 
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
+const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
 
     const dispatch = useDispatch();
     const editRef = useRef();
@@ -195,16 +195,11 @@ const DetailViewPage = ({ setInputText, inputText, setTitle, title, setfolders, 
             {isOpen &&
                 <>
                     <CreateNote
-                        title={title}
-                        setTitle={setTitle}
-                        inputText={inputText}
-                        setInputText={setInputText}
                         setfolders={setfolders}
                         allFolderLists={allFolderLists}
                         action="edit"
                         validateForm={validateForm}
                         folders={folders}
-
                     />
                 </>
             }

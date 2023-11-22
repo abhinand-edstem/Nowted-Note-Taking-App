@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Category from "../components/Category";
 import DetailViewPage from "../components/DetailViewPage";
 import FolderListing from "../components/FolderListing";
-import { getFolder } from "../store/allFolder/FolderAction";
 import {
     addNotes,
     archiveItemAction,
@@ -16,16 +15,17 @@ import {
     searchAction,
     updateNotes
 } from "../store/allNotes/NotesActions";
+import { getFolder } from "../store/allFolder/FolderAction";
 import { getArchived } from "../store/allArchive/ArchiveActions";
 import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
+import { inputTitle } from "../store/localStore/InputTitle";
+import { inputContent } from "../store/localStore/InputContent";
 
 
 const HomePage = () => {
     const dispatch = useDispatch();
 
     //states
-    const [inputText, setInputText] = useState("")
-    const [title, setTitle] = useState("")
     const [id, setid] = useState();
     const [folders, setfolders] = useState([])
     const [folderNotes, setFolderNotes] = useState({})
@@ -45,6 +45,8 @@ const HomePage = () => {
     const allFolder = useSelector((store) => store.folder.folder);
     const allTrash = useSelector((store) => store.note.notes);
     const allArchived = useSelector((store) => store.archive.archived);
+    const contentText = useSelector((store) => store.content.value);
+    const TitleText = useSelector((store) => store.title.value);
 
     useEffect(() => {
         dispatch(getNotes());
@@ -54,7 +56,7 @@ const HomePage = () => {
 
 
     function validateForm() {
-        if (title.length > 0 && inputText.length > 0) {
+        if (TitleText.length > 0 && contentText.length > 0) {
             saveNotes();
         }
         else {
@@ -88,6 +90,14 @@ const HomePage = () => {
     }, [folderSelect])
 
 
+    const editHandler = (selected) => {
+        setEditToggle(selected?.id);
+        dispatch(inputTitle(selected.title))
+        dispatch(inputContent(selected.content))
+        setfolders(selected?.folderId);
+        setid(selected?.id);
+    }
+
     const saveNotes = () => {
         const currentDate = new Date();
         const year = currentDate.getFullYear();
@@ -97,8 +107,8 @@ const HomePage = () => {
         const formattedDate = `${year}-${month}-${day}`;
         if (editToggle) {
             let params = {
-                title: title,
-                content: inputText,
+                title: TitleText,
+                content: contentText,
                 createdDate: formattedDate,
                 folderId: folders,
                 id: id
@@ -107,8 +117,8 @@ const HomePage = () => {
         }
         else {
             let params = {
-                title: title,
-                content: inputText,
+                title: TitleText,
+                content: contentText,
                 createdDate: formattedDate,
                 folder: {
                     id: folders
@@ -118,13 +128,6 @@ const HomePage = () => {
         }
     }
 
-    const editHandler = (selected) => {
-        setEditToggle(selected?.id);
-        setInputText(selected?.content);
-        setTitle(selected?.title);
-        setfolders(selected?.folderId);
-        setid(selected?.id);
-    }
 
     const deleteNote = (selected) => {
         let params = {
@@ -167,7 +170,7 @@ const HomePage = () => {
         dispatch(searchAction(search))
         setTimeout(() => {
             setSearch("");
-        }, 1000)
+        }, 3000)
     }
 
     return (
@@ -198,10 +201,6 @@ const HomePage = () => {
             </div>
             <div className="flex-initial w-6/12">
                 <DetailViewPage
-                    inputText={inputText}
-                    setInputText={setInputText}
-                    title={title}
-                    setTitle={setTitle}
                     setfolders={setfolders}
                     editHandler={editHandler}
                     editToggle={editToggle}
