@@ -22,6 +22,8 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
     const isOpen = useSelector((store) => store.open.value);
     const selected = useSelector((store) => store.select.value);
 
+    console.warn({selected});
+
     const [star, setstar] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 

@@ -26,26 +26,29 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
         dispatch(openAddForm(false));
     }
 
-    function refreshPage() {
+    function refreshTrash() {
         setTimeout(() => {
             dispatch(getTrash());
+            dispatch(SelectNoteReducer())
         }, 100)
     }
 
     const handleRestore = (id) => {
         dispatch(removeFromTrash(id))
-        refreshPage();
+        refreshTrash();
     }
 
     const handleDelete = (id) => {
         dispatch(deleteTrash(id))
-        refreshPage();
+        refreshTrash();
     }
 
     const handleArchiveRestore = (id) =>{
         dispatch(restoreArchive(id));
-        refreshPage();
-        dispatch(getArchived());
+        setTimeout(()=>{
+            dispatch(getArchived());
+            dispatch(SelectNoteReducer())
+        },100)
     }
 
     return (

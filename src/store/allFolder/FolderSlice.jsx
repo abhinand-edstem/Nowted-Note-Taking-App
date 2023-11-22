@@ -27,7 +27,6 @@ const FolderSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(addFolder.fulfilled, (state, actions) => {
-            debugger;
             state.folder.push(actions.payload)
         });
         builder.addCase(addFolder.rejected, (state, { payload }) => {

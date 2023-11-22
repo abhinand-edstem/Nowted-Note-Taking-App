@@ -28,6 +28,7 @@ const ArchiveSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(restoreArchive.fulfilled, (state, actions) => {
+            debugger;
             const {id} = actions.payload;
 
             if(id){

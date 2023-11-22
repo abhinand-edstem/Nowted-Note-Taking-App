@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+
 export const getFolder = createAsyncThunk("note/getFolder", async (reqData, { rejectWithValue }) => {
     try {
-        const { data } = await axios.get("http://localhost:8080/v1/folders");
+        const { data } = await axios.get(`${BASE_URL}/folders`);
         return data;
     } catch (error) {
         if (error.response && error.response.data.message) {
@@ -20,7 +23,7 @@ export const addFolder = createAsyncThunk("note/addFolder", async (reqData, { re
             let params = {
                 name: reqData.name,
             }
-            const { data } = await axios.post('http://localhost:8080/v1/folders', params);
+            const { data } = await axios.post(`${BASE_URL}/folders`, params);
             return data;
     } catch (error) {
         if (error.response && error.response.data.message) {

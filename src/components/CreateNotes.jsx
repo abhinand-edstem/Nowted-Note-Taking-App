@@ -54,7 +54,8 @@ const CreateNote = ({setfolders, allFolderLists, action, onEditClick, validateFo
                         ))}
                     </select>
                     <div className="ml-4">
-                        <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white mx-4" onClick={handleClick}>Save</button>                        {action == "edit" && <>
+                        <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white mx-4" onClick={handleClick}>Save</button>                        
+                        {action == "edit" && <>
                             <button className="bg-blue-500 border-white p-2 w-24 rounded font-semibold text-white" onClick={onEditClick}>cancel</button>
                         </>}
                     </div>
