@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { openAddForm } from "../store/localStore/openAddForm";
 import { deleteTrash, getTrash, removeFromTrash } from "../store/allNotes/NotesActions";
 import { getArchived, restoreArchive } from "../store/allArchive/ArchiveActions";
@@ -8,16 +9,18 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 
 
+// eslint-disable-next-line react/prop-types
 const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
 
-    const [isClicked, setIsClicked] = useState();
     const dispatch = useDispatch();
+
+    const [isClicked, setIsClicked] = useState();
+    
     const allNotes = useSelector((store) => store.note.notes);
     const favItems = allNotes.filter((item) => item.favorite == true);
     const dispalyNotes = allNotes.filter((item) => item.trash == false);
 
     const handleFolderClick = (event, note) => {
-        // setselected(note);
         dispatch(SelectNoteReducer(note))
         setIsClicked(note?.id);
         dispatch(openAddForm(false));

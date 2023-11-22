@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getFolder } from "./FolderAction";
+import { addFolder, getFolder } from "./FolderAction";
 
 const FolderSlice = createSlice({
     name: "folder",
@@ -18,6 +18,19 @@ const FolderSlice = createSlice({
             state.folder = actions.payload;
         });
         builder.addCase(getFolder.rejected, (state, { payload }) => {
+            state.loading = false;
+        });
+
+        ///add Folder
+        builder.addCase(addFolder.pending, state => {
+            state.folder = [];
+            state.loading = true;
+        });
+        builder.addCase(addFolder.fulfilled, (state, actions) => {
+            debugger;
+            state.folder.push(actions.payload)
+        });
+        builder.addCase(addFolder.rejected, (state, { payload }) => {
             state.loading = false;
         });
     }

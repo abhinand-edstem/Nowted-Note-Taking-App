@@ -15,7 +15,7 @@ import {
     searchAction,
     updateNotes
 } from "../store/allNotes/NotesActions";
-import { getFolder } from "../store/allFolder/FolderAction";
+import { addFolder, getFolder } from "../store/allFolder/FolderAction";
 import { getArchived } from "../store/allArchive/ArchiveActions";
 import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 import { inputTitle } from "../store/localStore/InputTitle";
@@ -48,6 +48,8 @@ const HomePage = () => {
     const contentText = useSelector((store) => store.content.value);
     const TitleText = useSelector((store) => store.title.value);
 
+    console.warn({allNotes});
+
     useEffect(() => {
         dispatch(getNotes());
         dispatch(getFolder());
@@ -73,10 +75,10 @@ const HomePage = () => {
         let params = {
             name: newFolders
         }
-        dispatch(getFolder(params))
+        dispatch(addFolder(params))
         setTimeout(() => {
             dispatch(getFolder());
-        }, 500)
+        }, 300)
     }
 
     useEffect(() => {
@@ -87,7 +89,7 @@ const HomePage = () => {
             setFolderNotes(folderSelectData);
             setisFav("folderSelect");
         }
-    }, [folderSelect])
+    }, [folderSelect]) 
 
 
     const editHandler = (selected) => {

@@ -11,12 +11,12 @@ import { openAddForm } from '../store/localStore/openAddForm';
 import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch,TrashButtonClick,ArchiveButtonClick }) => {
+const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch, TrashButtonClick, ArchiveButtonClick }) => {
     // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
- 
+
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
@@ -31,7 +31,6 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
     }
 
     const handleclick = (event, note) => {
-        // setselected(note);
         dispatch(SelectNoteReducer(note))
         setIsClicked(note?.id);
     }
@@ -47,7 +46,6 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
 
     const addNewNotes = () => {
         dispatch(openAddForm(true))
-        // setselected("")
         dispatch(SelectNoteReducer())
     }
 
@@ -84,7 +82,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                         <>
                             <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
                                 <CgNotes className={`text-[#747474] text-2xl`} />
-                                <p className='text-white'>{note?.title.substring(0,20)}</p>
+                                <p className='text-white'>{note?.title.substring(0, 20)}</p>
                             </div>
                         </>
                     ))}
