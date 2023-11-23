@@ -11,7 +11,6 @@ import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
 
 // eslint-disable-next-line react/prop-types
 const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, setSearch, search, handleSearch, TrashButtonClick, ArchiveButtonClick }) => {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
@@ -52,8 +51,8 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
 
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
-            <div className="flex justify-between px-1 my-3">
-                <div className='relative'><h2 className="nowted-title">nowted</h2>
+            <div className="flex justify-between px-1 my-8">
+                <div className='relative'><h2 className="nowted-title cursor-pointer" onClick={()=>window.location.reload()}>nowted</h2>
                     <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
                 <div><GoSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl mr-3 mt-2 cursor-pointer' /></div>
@@ -65,7 +64,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                         maxLength={25}
                         placeholder="Search Here"
                         onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 rounded-md m-2 w-9/12 h-10 bg-black text-[#747474] placeholder-white'
+                        className='p-2 rounded-md m-2 w-9/12 h-10 bg-transparent  text-[#747474] placeholder-white'
                     />
                     <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button>
                 </div>
@@ -102,7 +101,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                             maxLength={25}
                             placeholder="Title for the Folder"
                             onChange={(e) => setnewFolders(e.target.value)}
-                            className='p-3 rounded-md m-2 w-60 h-10 bg-black text-[#747474] placeholder-white'
+                            className='p-3 rounded-md m-2 w-60 h-10 bg-transparent  text-[#747474] placeholder-white'
                         />
                         <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-4'>Add</button>
                     </div>

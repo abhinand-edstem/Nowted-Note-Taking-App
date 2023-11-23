@@ -10,7 +10,6 @@ export const getArchived = createAsyncThunk("note/getArchived", async (reqData, 
             const { data } = await axios.get(`${BASE_URL}/notes/archived`);
             return data;
         } else {
-            // const { data } = await axios.put(`http://localhost:8080/v1/notes/${reqData}/archive`);
             const { data } = await axios.put(`${BASE_URL}/notes/${reqData}/archive`);
             return data;
         }

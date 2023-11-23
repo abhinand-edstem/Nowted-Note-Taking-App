@@ -181,7 +181,7 @@ const HomePage = () => {
     }
 
     return (
-        <div className="flex h-[100vh] overflow-y-auto">
+        <div className="flex h-[100vh]">
             <div className="flex-initial w-3/12">
                 <Category
                     favBtnClick={favBtnClick}

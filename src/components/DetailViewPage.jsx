@@ -64,17 +64,17 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
             {selected && !isOpen &&
                 <>
                     <div>
-                        <div className="my-3 ml-5 flex justify-between">
-                            <h2 className="text-white text-3xl font-semibold my-6 mx-2">{selected.title}</h2>
+                        <div className="my-8 ml-5 flex justify-between">
+                            <h2 className="text-white text-3xl font-semibold my-8 mx-2">{selected.title}</h2>
                             <div className='flex space-x-5 pr-8'>
-                                <div className="m-6  cursor-pointer" onClick={handleThreeDotsClick}>
+                                <div className="mt-8 mx-3 cursor-pointer" onClick={handleThreeDotsClick}>
                                     <div className="bg-black border border-white text-white hover:bg-[#262626] font-semibold rounded-full p-2">
                                         <div className="w-2 h-2  flex items-center justify-center"> <span className='font-serif mb-2'>...</span></div>
                                     </div>
                                 </div>
 
                                 {showDropdown && (
-                                    <div className="absolute right-14 top-14 mt-2 w-52 bg-[#262626] shadow rounded-md">
+                                    <div className="absolute right-14 top-24 mt-2 w-52 bg-[#262626] shadow rounded-md">
                                         <ul className="py-1">
                                             <li
                                                 onClick={() => {
@@ -141,7 +141,7 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
                                 <hr />
                             </div>
                         </div>
-                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
+                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1 border-zinc-600' />
 
                         <div className='flex justify-start space-x-14 ml-6 mt-5'>
                             <div className='flex justify-start space-x-4'>
@@ -153,7 +153,7 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
                                 <hr />
                             </div>
                         </div>
-                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
+                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1 border-zinc-600' />
 
                         <div className='flex justify-start space-x-14 ml-6 mt-5'>
                             <div className='flex justify-start space-x-4'>
@@ -184,7 +184,7 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
                                 <h1 className='text-white font-semibold text-base uppercase cursor-pointer underline underline-offset-4' onClick={() => setUnderLine(!underline)}>U</h1>
                             </div>
                         </div>
-                        <hr className='my-3 ml-6 mr-6 bg-[rgba(255, 255, 255, 0.1)] border-1' />
+                        <hr className='my-3 ml-6 mr-6 border-1 border-zinc-600' />
 
 
 

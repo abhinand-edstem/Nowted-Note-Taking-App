@@ -59,7 +59,6 @@ export const updateNotes = createAsyncThunk("note/updateNotes", async (reqData, 
 
 export const favButtonClickAction = createAsyncThunk("note/favButtonClickAction", async (reqData, { rejectWithValue }) => {
     try {
-        // const { data } = await axios.get("http://localhost:8080/v1/notes/favorites")
         const { data } = await axios.get(`${BASE_URL}/notes/favorites`);
         return data;
 
@@ -79,7 +78,6 @@ export const favDelete = createAsyncThunk("note/favDelete", async (reqData, { re
             let params = {
                 id: reqData.id
             }
-            // const { data } = await axios.delete(`http://localhost:8080/v1/notes/${params.id}/favorite`)
             const { data } = await axios.delete(`${BASE_URL}/notes/${params.id}/favorite`);
             return data;
         }
@@ -87,7 +85,6 @@ export const favDelete = createAsyncThunk("note/favDelete", async (reqData, { re
             let params = {
                 id: reqData.id
             }
-            // const { data } = await axios.put(`http://localhost:8080/v1/notes/${params.id}/favorite`)
             const { data } = await axios.put(`${BASE_URL}/notes/${params.id}/favorite`);
             return data;
         }
@@ -107,7 +104,6 @@ export const archiveItemAction = createAsyncThunk("note/archiveItemAction", asyn
         let params = {
             id: reqData
         }
-        // const { data } = await axios.put(`http://localhost:8080/v1/notes/${params.id}/archive`)
         const { data } = await axios.put(`${BASE_URL}/notes/${params.id}/archive`);
         return data;
 
@@ -123,7 +119,6 @@ export const archiveItemAction = createAsyncThunk("note/archiveItemAction", asyn
 
 export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { rejectWithValue }) => {
     try {
-        // const { data } = await axios.get("http://localhost:8080/v1/notes/trashed");
         const { data } = await axios.get(`${BASE_URL}/notes/trashed`);
         return data;
     } catch (error) {
@@ -138,7 +133,6 @@ export const getTrash = createAsyncThunk("note/getTrash", async (reqData, { reje
 
 export const removeFromTrash = createAsyncThunk("note/removeFromTrash", async (reqData, { rejectWithValue }) => {
     try {
-        // const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/trash`);
         const { data } = await axios.delete(`${BASE_URL}/notes/${reqData}/trash`);
         return data;
 
@@ -157,7 +151,6 @@ export const moveToTrash = createAsyncThunk("note/moveToTrash", async (reqData, 
         let params = {
             id: reqData.id
         }
-        // const { data } = await axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`)
         const { data } = await axios.put(`${BASE_URL}/notes/${params.id}/trash`);
         return data;
 
@@ -172,7 +165,6 @@ export const moveToTrash = createAsyncThunk("note/moveToTrash", async (reqData, 
 
 export const deleteTrash = createAsyncThunk("note/deleteTrash", async (reqData, { rejectWithValue }) => {
     try {
-        // const { data } = await axios.delete(`http://localhost:8080/v1/notes/${reqData}/delete`);
         const { data } = await axios.delete(`${BASE_URL}/notes/${reqData}/delete`);
         return data;
 
@@ -190,7 +182,6 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
         let params = {
             id: reqData.id
         }
-        // const { data } = await axios.put(`http://localhost:8080/v1/notes/${params.id}/trash`)
         const { data } = await axios.put(`${BASE_URL}/notes/${params.id}/trash`);
         return data;
 
@@ -205,7 +196,6 @@ export const noteDelete = createAsyncThunk("note/noteDelete", async (reqData, { 
 
 export const searchAction = createAsyncThunk("note/searchAction", async (reqData, { rejectWithValue }) => {
     try {
-        // const { data } = await axios.get(`http://localhost:8080/v1/notes/search?query=${reqData}`)
         const { data } = await axios.get(`${BASE_URL}/notes/search?query=${reqData}`);
         return data;
 
