@@ -16,7 +16,7 @@ import { FaStar } from "react-icons/fa";
 
 
 // eslint-disable-next-line react/prop-types
-const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, ArchivedItesm, allFolderLists, validateForm, folders }) => {
+const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, ArchivedItesm, validateForm, folders }) => {
 
     const dispatch = useDispatch();
     const editRef = useRef();
@@ -24,13 +24,11 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
     const isOpen = useSelector((store) => store.open.value);
     const selected = useSelector((store) => store.select.value);
 
-    console.warn({ selected });
-
     const [star, setstar] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [fontSize, setFontSize] = useState(16);
     const [fontbold, setfontbold] = useState("thin");
-    const [paragraph, setPargraph] = useState('h1');
+    const [paragraph, setPargraph] = useState();
     const [italic, setItalic] = useState(false);
     const [underline, setUnderLine] = useState(false);
 
@@ -159,14 +157,13 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
 
                         <div className='flex justify-start space-x-14 ml-6 mt-5'>
                             <div className='flex justify-start space-x-4'>
-                                {/* <p className='text-white font-normal'>Paragraph</p> */}
                                 <select className="rounded bg-[#181818] w-20 border-none text-white" onChange={handleParagraphChange}>
-                                    <option value="h1">H1</option>
-                                    <option value="h2">H2</option>
-                                    <option value="h3">H3 </option>
-                                    <option value="h4">H4</option>
-                                    <option value="h5">H5</option>
-                                    <option value="h6">H6</option>
+                                    <option className='text-3xl' value="h1">Heading 1</option>
+                                    <option className='text-2xl' value="h2">Heading 2</option>
+                                    <option className='text-xl' value="h3">Heading 3 </option>
+                                    <option className='text-base' value="h4">Heading 4</option>
+                                    <option className='text-sm' value="h5">Heading 5</option>
+                                    <option className='text-xs' value="h6">Heading 6</option>
                                 </select>
                             </div>
                             <div className='flex justify-start space-x-4'>
@@ -223,7 +220,7 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
                             <p className={`text-white
                          ${fontSize == "15" ? 'text-[15px]' : fontSize == 18 ? 'text-[18px]' : fontSize == 20 ? 'text-[20px]' : fontSize == 22 ? 'text-[22px]' : ''} 
                          ${fontbold == "Normal" ? 'font-normal' : fontbold == "semibold" ? 'font-semibold' : fontbold == "bold" ? 'font-bold' : ''}
-                         ${paragraph == "h1" ? 'text-sm' : paragraph == "h2" ? 'text-base' : paragraph == "h3" ? 'text-lg' : paragraph == "h4" ? 'text-xl' : paragraph == "h5" ? 'text-2xl' : paragraph == "h6" ? 'text-3xl' : ''}
+                         ${paragraph == "h1" ? 'text-3xl' : paragraph == "h2" ? 'text-2xl' : paragraph == "h3" ? 'text-xl' : paragraph == "h4" ? 'text-lg' : paragraph == "h5" ? 'text-sm' : paragraph == "h6" ? 'text-xs' : ''}
                          ${italic ? 'italic' : ''}
                          ${underline ? 'underline underline-offset-4' : ''}
                          leading-8`}>
@@ -250,7 +247,6 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
                 <>
                     <CreateNote
                         setfolders={setfolders}
-                        allFolderLists={allFolderLists}
                         action="edit"
                         validateForm={validateForm}
                         folders={folders}

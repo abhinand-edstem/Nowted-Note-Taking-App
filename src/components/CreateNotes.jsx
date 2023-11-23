@@ -3,12 +3,13 @@ import { inputContent } from "../store/localStore/InputContent";
 import { inputTitle } from "../store/localStore/InputTitle";
 
 // eslint-disable-next-line react/prop-types
-const CreateNote = ({setfolders, allFolderLists, action, onEditClick, validateForm, folders}) => {
+const CreateNote = ({setfolders, action, onEditClick, validateForm, folders}) => {
 
     const dispatch = useDispatch();
 
     const contentText = useSelector((store) => store.content.value);
     const TitleText = useSelector((store) => store.title.value);
+    const allFolderLists = useSelector((store) => store.allFolders.value);
 
     const handleDropdownChange = (e) => {
         setfolders(e.target.value);
@@ -35,10 +36,9 @@ const CreateNote = ({setfolders, allFolderLists, action, onEditClick, validateFo
                     <textarea
                         name="text"
                         value={contentText}
-                        cols={20}
                         rows={15}
                         placeholder='Write here...'
-                        className='p-3 rounded-md m-3 w-full bg-black border-white text-white placeholder-white'
+                        className='px-3 py-2 rounded-md m-3 w-full bg-black border-white text-white placeholder-white'
                         onChange={(e)=> dispatch(inputContent(e.target.value))}
                         required
                     >
@@ -47,7 +47,7 @@ const CreateNote = ({setfolders, allFolderLists, action, onEditClick, validateFo
                 <div className="flex space-x-5 ml-5">
                     <select className="w-32 rounded" onChange={handleDropdownChange}>
                         <option value={folders}>Select Folder</option>
-                        {Array.isArray(allFolderLists) && allFolderLists.map((item, index) => (
+                        {Array.isArray(allFolderLists) && allFolderLists.map((item) => (
                             <>
                                 <option key={item?.id} value={item?.id}>{item?.name}</option>
                             </>

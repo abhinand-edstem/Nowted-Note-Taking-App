@@ -20,10 +20,19 @@ import { getArchived } from "../store/allArchive/ArchiveActions";
 import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 import { inputTitle } from "../store/localStore/InputTitle";
 import { inputContent } from "../store/localStore/InputContent";
+import { allFolderReducer } from "../store/localStore/AllFolders";
 
 
 const HomePage = () => {
     const dispatch = useDispatch();
+    
+    //get Data from store
+    const allNotes = useSelector((store) => store.note.notes);
+    const allFolder = useSelector((store) => store.folder.folder);
+    const allTrash = useSelector((store) => store.note.notes);
+    const allArchived = useSelector((store) => store.archive.archived);
+    const contentText = useSelector((store) => store.content.value);
+    const TitleText = useSelector((store) => store.title.value);
 
     //states
     const [id, setid] = useState();
@@ -33,26 +42,15 @@ const HomePage = () => {
     const [isFav, setisFav] = useState("list");
     const [folderSelect, setfolderSelect] = useState("")
     const [newFolders, setnewFolders] = useState("")
-    const [allFolderLists, setallFolderLists] = useState()
     const [search, setSearch] = useState("")
-
 
     //give some predefined folders
     const allfolders = [];
 
-    //get value from store
-    const allNotes = useSelector((store) => store.note.notes);
-    const allFolder = useSelector((store) => store.folder.folder);
-    const allTrash = useSelector((store) => store.note.notes);
-    const allArchived = useSelector((store) => store.archive.archived);
-    const contentText = useSelector((store) => store.content.value);
-    const TitleText = useSelector((store) => store.title.value);
-
-
     useEffect(() => {
         dispatch(getNotes());
         dispatch(getFolder());
-        setallFolderLists(allfolders);
+        dispatch(allFolderReducer(allfolders))
     }, []);
 
 
@@ -66,7 +64,7 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        setallFolderLists(allFolder)
+        dispatch(allFolderReducer(allFolder))
     }, [allFolder])
 
 
@@ -192,7 +190,6 @@ const HomePage = () => {
                     setnewFolders={setnewFolders}
                     newFolders={newFolders}
                     addNewFolders={addNewFolders}
-                    allFolderLists={allFolderLists}
                     setSearch={setSearch}
                     search={search}
                     handleSearch={handleSearch}
@@ -216,7 +213,6 @@ const HomePage = () => {
                     deleteNote={deleteNote}
                     favItems={favItems}
                     ArchivedItesm={ArchivedItesm}
-                    allFolderLists={allFolderLists}
                     validateForm={validateForm}
                     folders={folders}
                 />

@@ -7,6 +7,7 @@ import openAddForm from './store/localStore/openAddForm';
 import SelectedNotes from './store/localStore/SelectedNotes';
 import InputContent from './store/localStore/InputContent';
 import InputTitle from './store/localStore/InputTitle';
+import AllFolders from './store/localStore/AllFolders';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     open: openAddForm,
     select: SelectedNotes,
     content: InputContent,
-    title: InputTitle
+    title: InputTitle,
+    allFolders : AllFolders
   },
 })

@@ -10,11 +10,12 @@ import { openAddForm } from '../store/localStore/openAddForm';
 import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, allFolderLists, allfolders, setSearch, search, handleSearch, TrashButtonClick, ArchiveButtonClick }) => {
+const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, setSearch, search, handleSearch, TrashButtonClick, ArchiveButtonClick }) => {
     // const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
+    const allFolderLists = useSelector((store) => store.allFolders.value);
 
     const [isClicked, setIsClicked] = useState();
     const [inputbox, setinputbox] = useState(false);
