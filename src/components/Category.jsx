@@ -1,8 +1,7 @@
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FaSearch, FaPen } from 'react-icons/fa';
+import { FaPen } from 'react-icons/fa';
 import { CgNotes } from 'react-icons/cg';
 import { GoSearch } from "react-icons/go";
 import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOutlineStar } from 'react-icons/ai';
@@ -56,13 +55,13 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                 <div className='relative'><h2 className="nowted-title">nowted</h2>
                     <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
-                <div><FaSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl m-2 cursor-pointer' /></div>
+                <div><GoSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl mr-3 mt-2 cursor-pointer' /></div>
             </div>
             {serachBox && <>
                 <div className='flex mb-3'>
                     <input
                         value={search}
-                        maxLength={20}
+                        maxLength={25}
                         placeholder="Search Here"
                         onChange={(e) => setSearch(e.target.value)}
                         className='p-2 rounded-md m-2 w-9/12 h-10 bg-black text-[#747474] placeholder-white'
@@ -76,13 +75,13 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
             </div>
 
             <div className='my-6 mx-2' >
-                <p className='text-[#9d9d9d] text-lg font-semibold'>Recents</p>
+                <p className='text-[#9d9d9d] text-lg font-semibold mb-2'>Recents</p>
                 <div>
                     {recentNotes && recentNotes.length > 0 && recentNotes.map((note) => (
                         <>
                             <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
-                                <CgNotes className={`text-[#747474] text-2xl`} />
-                                <p className='text-white'>{note?.title.substring(0, 20)}</p>
+                                <CgNotes className={`text-[#747474] text-2xl ${note?.id == isClicked ? 'text-white' : ""}`} />
+                                <p className='text-white'>{note?.title.substring(0, 25)}</p>
                             </div>
                         </>
                     ))}
@@ -92,30 +91,30 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
             <div className='my-6 mx-2'>
                 <div className='flex justify-between'>
                     <p className='text-[#9d9d9d] text-lg font-semibold'>Folder</p>
-                    <AiOutlineFolderAdd onClick={createNewFolder} className='text-[#747474] cursor-pointer w-6 h-6' />
+                    <AiOutlineFolderAdd onClick={createNewFolder} className='text-[#747474] cursor-pointer text-2xl mr-3' />
                 </div>
                 {inputbox && <>
                     <div className='flex'>
-                        <AiFillFolderOpen className='text-[#747474] w-6 h-6 mt-3' />
+                        <AiFillFolderOpen className='text-[#747474] text-2xl mt-4 mr-2' />
                         <input
                             value={newFolders}
-                            maxLength={20}
+                            maxLength={25}
                             placeholder="Title for the Folder"
                             onChange={(e) => setnewFolders(e.target.value)}
-                            className='p-3 rounded-md m-2 w-2/3 h-10 bg-black text-[#747474] placeholder-white'
+                            className='p-3 rounded-md m-2 w-60 h-10 bg-black text-[#747474] placeholder-white'
                         />
-                        <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-3'>Add</button>
+                        <button onClick={handleclickFolderOpen} className='bg-blue-500 p-2 rounded w-16 h-10 mt-2 ml-4'>Add</button>
                     </div>
 
                 </>}
                 {allFolderLists && allFolderLists.length > 0 && allFolderLists.map((item, index) => (
                     <>
-                        <div className='flex justify-start space-x-4 text-[#9d9d9d] my-4 cursor-pointer' key={index} onClick={() => handleFolderClick(item)} >
+                        <div className={`flex justify-start space-x-4 text-[#9d9d9d] p-2 cursor-pointer ${folderOpen == item?.id ? 'bg-[#242424] text-white rounded' : ''}`} key={index} onClick={() => handleFolderClick(item)} >
                             {folderOpen == item?.id ? <>
-                                <AiFillFolderOpen className='mt-1' />
+                                <AiFillFolderOpen className='mt-1 text-xl' />
                             </> :
                                 <>
-                                    <AiFillFolder className='mt-1' />
+                                    <AiFillFolder className='mt-1 text-xl' />
                                 </>}
 
                             <p>{item?.name}</p>
@@ -126,17 +125,17 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
 
             <div className='my-6 mx-2'>
                 <p className='text-[#9d9d9d] text-lg font-semibold'>More</p>
-                <div>
+                <div className='space-y-2'>
                     <div className='flex justify-start space-x-4 text-[#9d9d9d] border-red-300 my-4 cursor-pointer' onClick={favBtnClick}>
-                        <AiOutlineStar className='mt-1' />
+                        <AiOutlineStar className='text-xl' />
                         <p>Favorites</p>
                     </div>
                     <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={TrashButtonClick}>
-                        <BiTrashAlt className='mt-1' />
+                        <BiTrashAlt className='text-xl' />
                         <p>Trash</p>
                     </div>
                     <div className='flex justify-start space-x-4 text-[#9d9d9d] cursor-pointer my-4' onClick={ArchiveButtonClick}>
-                        <AiFillDelete className='mt-1' />
+                        <AiFillDelete className='text-xl' />
                         <p>Archived Notes</p>
                     </div>
                 </div>

@@ -48,7 +48,6 @@ const HomePage = () => {
     const contentText = useSelector((store) => store.content.value);
     const TitleText = useSelector((store) => store.title.value);
 
-    console.warn({allNotes});
 
     useEffect(() => {
         dispatch(getNotes());
@@ -62,7 +61,7 @@ const HomePage = () => {
             saveNotes();
         }
         else {
-            alert('Invalid Form fill Title , Desc & Option select')
+            alert('Invalid Form fill the Title , Desc & select Option')
         }
     }
 
@@ -75,10 +74,15 @@ const HomePage = () => {
         let params = {
             name: newFolders
         }
-        dispatch(addFolder(params))
-        setTimeout(() => {
-            dispatch(getFolder());
-        }, 300)
+        if (newFolders.length > 0) {
+            dispatch(addFolder(params));
+            setTimeout(() => {
+                dispatch(getFolder());
+            }, 300)
+        }
+        else {
+            alert('Enter Valid Folder Name')
+        }
     }
 
     useEffect(() => {
@@ -89,7 +93,7 @@ const HomePage = () => {
             setFolderNotes(folderSelectData);
             setisFav("folderSelect");
         }
-    }, [folderSelect]) 
+    }, [folderSelect])
 
 
     const editHandler = (selected) => {
@@ -144,6 +148,9 @@ const HomePage = () => {
     const favItems = (selected) => {
         dispatch(favDelete(selected))
         dispatch(SelectNoteReducer());
+        setTimeout(() => {
+            dispatch(getNotes())
+        }, 200)
     }
 
     const favBtnClick = () => {

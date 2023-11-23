@@ -14,8 +14,8 @@ export const store = configureStore({
     folder: FolderSlice,
     archive: ArchiveSlice,
     open: openAddForm,
-    select : SelectedNotes,
-    content : InputContent,
-    title : InputTitle
+    select: SelectedNotes,
+    content: InputContent,
+    title: InputTitle
   },
 })
