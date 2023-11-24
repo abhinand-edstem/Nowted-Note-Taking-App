@@ -73,7 +73,6 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
             {serachBox && <>
                 <div className='flex mb-4'>
                     <input
-<<<<<<< HEAD
                         // value={search}
                         maxLength={25}
                         placeholder="Search Here"
@@ -81,14 +80,6 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                         className='p-2 rounded-md m-2 w-11/12 h-10 bg-black  text-[#747474] placeholder-white'
                     />
                     {/* <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button> */}
-=======
-                        value={search}
-                        maxLength={28}
-                        placeholder="Search Here"
-                        onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 rounded-md m-2 w-11/12 h-10 bg-black  text-[#747474] placeholder-white border-1 border-slate-400'
-                    />
->>>>>>> 58834f2e82e5e91d2643d578b222d6bd06490403
                 </div>
             </>}
 
@@ -101,7 +92,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                 <div>
                     {recentNotes && recentNotes.length > 0 && recentNotes.map((note) => (
                         <>
-                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${isClicked == note.id ? 'bg-blue-500 text-white' : ''}`} >
+                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer`} >
                                 <CgNotes className={`text-[#747474] text-2xl ${note?.id == isClicked ? 'text-white' : ""}`} />
                                 <p className='text-white'>{note?.title.substring(0, 25)}</p>
                             </div>

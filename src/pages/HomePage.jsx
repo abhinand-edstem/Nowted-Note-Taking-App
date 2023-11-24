@@ -70,11 +70,7 @@ const HomePage = () => {
     }, [allFolder])
 
     useEffect(()=>{
-<<<<<<< HEAD
         dispatch(searchAction(search))
-=======
-        dispatch(searchAction(search));
->>>>>>> 58834f2e82e5e91d2643d578b222d6bd06490403
     },[search])
 
 

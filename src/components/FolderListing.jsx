@@ -61,7 +61,7 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                     <p className='text-[#fdfdfd] text-lg font-semibold my-8 mx-2'>All Notes</p>
                     {dispalyNotes && dispalyNotes.length > 0 && dispalyNotes.map((note, index) => (
                         <>
-                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${isClicked == note.id ? 'bg-[#444444] text-white' : ''}`}>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer`}>
                                 <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                 <div className="flex mt-3 space-x-5">
                                     <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
