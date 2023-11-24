@@ -10,7 +10,7 @@ import { openAddForm } from '../store/localStore/openAddForm';
 import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
 
 // eslint-disable-next-line react/prop-types
-const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, setSearch, search, handleSearch, TrashButtonClick, ArchiveButtonClick }) => {
+const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, setSearch, search, TrashButtonClick, ArchiveButtonClick }) => {
     const dispatch = useDispatch();
 
     const allNotes = useSelector((store) => store.note.notes);
@@ -58,15 +58,14 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                 <div><GoSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl mr-3 mt-2 cursor-pointer' /></div>
             </div>
             {serachBox && <>
-                <div className='flex mb-3'>
+                <div className='flex mb-4'>
                     <input
                         value={search}
-                        maxLength={25}
+                        maxLength={28}
                         placeholder="Search Here"
                         onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 rounded-md m-2 w-9/12 h-10 bg-transparent  text-[#747474] placeholder-white'
+                        className='p-2 rounded-md m-2 w-11/12 h-10 bg-black  text-[#747474] placeholder-white border-1 border-slate-400'
                     />
-                    <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button>
                 </div>
             </>}
 

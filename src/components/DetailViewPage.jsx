@@ -59,7 +59,7 @@ const DetailViewPage = ({ setfolders, editHandler, deleteNote, favItems, Archive
         setstar(!star);
     }
     return (
-        <div className="bg-[#181818] h-[100vh] overflow-y-auto">
+        <div className="bg-[#181818] h-[100vh] overflow-y-auto px-4">
 
             {selected && !isOpen &&
                 <>

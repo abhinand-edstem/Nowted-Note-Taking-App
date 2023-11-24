@@ -67,6 +67,10 @@ const HomePage = () => {
         dispatch(allFolderReducer(allFolder))
     }, [allFolder])
 
+    useEffect(()=>{
+        dispatch(searchAction(search));
+    },[search])
+
 
     const addNewFolders = () => {
         let params = {
@@ -173,12 +177,6 @@ const HomePage = () => {
         }))
     }
 
-    const handleSearch = () => {
-        dispatch(searchAction(search))
-        setTimeout(() => {
-            setSearch("");
-        }, 3000)
-    }
 
     return (
         <div className="flex h-[100vh]">
@@ -192,7 +190,6 @@ const HomePage = () => {
                     addNewFolders={addNewFolders}
                     setSearch={setSearch}
                     search={search}
-                    handleSearch={handleSearch}
                     TrashButtonClick={TrashButtonClick}
                     ArchiveButtonClick={ArchiveButtonClick}
                 />
