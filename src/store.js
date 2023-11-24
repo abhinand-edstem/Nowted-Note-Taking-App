@@ -8,6 +8,7 @@ import SelectedNotes from './store/localStore/SelectedNotes';
 import InputContent from './store/localStore/InputContent';
 import InputTitle from './store/localStore/InputTitle';
 import AllFolders from './store/localStore/AllFolders';
+import SelectClick from './store/localStore/SelectClick';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     select: SelectedNotes,
     content: InputContent,
     title: InputTitle,
-    allFolders : AllFolders
+    allFolders : AllFolders,
+    isClicked : SelectClick
   },
 })

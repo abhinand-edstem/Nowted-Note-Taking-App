@@ -7,6 +7,7 @@ import { getArchived, restoreArchive } from "../store/allArchive/ArchiveActions"
 import { MdOutlineSettingsBackupRestore } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
+import { ClickReducer } from "../store/localStore/SelectClick";
 
 
 // eslint-disable-next-line react/prop-types
@@ -14,18 +15,20 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
 
     const dispatch = useDispatch();
 
-    const [isClicked, setIsClicked] = useState(null);
-
-    console.warn({isClicked});
-
+    // const [isClicked, setIsClicked] = useState("");
     const allNotes = useSelector((store) => store.note.notes);
     const favItems = allNotes.filter((item) => item.favorite == true);
     const dispalyNotes = allNotes.filter((item) => item.trash == false);
 
+    const isClicked = useSelector((store) => store.isClicked.value);
+
+    console.warn({isClicked});
+
     const handleFolderClick = (event, note) => {
         dispatch(SelectNoteReducer(note))
         dispatch(openAddForm(false));
-        setIsClicked(note?.id);
+        // setIsClicked(note?.id);
+        dispatch(ClickReducer(note.id))
     }
 
     function refreshTrash() {
@@ -61,13 +64,15 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                     <p className='text-[#fdfdfd] text-lg font-semibold my-8 mx-2'>All Notes</p>
                     {dispalyNotes && dispalyNotes.length > 0 && dispalyNotes.map((note, index) => (
                         <>
-                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer`}>
+                        <div className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer  ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} >
                                 <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                 <div className="flex mt-3 space-x-5">
                                     <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
                                     <h1 className="text-white font-thin text-sm break-words">{note?.content.substring(0, 25)}</h1>
                                 </div>
                             </div>
+                        </div>
                         </>
                     ))}
                 </>}
@@ -77,7 +82,7 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                     <p className='text-[#fdfdfd] text-lg font-semibold my-8 mx-2'>All Trash</p>
                     {allTrash && allTrash.length > 0 && allTrash.map((note, index) => (
                         <>
-                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer`}>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
                                 <div className="flex justify-between">
                                     <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                     <div className="space-x-3">
@@ -99,7 +104,7 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                     <p className='text-[#fdfdfd] text-lg font-semibold my-8 mx-2'>All Archived</p>
                     {allArchived && allArchived.length > 0 && allArchived.map((note, index) => (
                         <>
-                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer`}>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
                                 <div className="flex justify-between">
                                     <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                     <div className="space-x-3">
@@ -121,7 +126,7 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                     <p className='text-[#fdfdfd] text-lg font-semibold my-8 mx-2'>Favorites</p>
                     {favItems && favItems.length > 0 && favItems.map((note, index) => (
                         <>
-                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer `}>
+                            <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
                                 <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                 <div className="flex mt-3 space-x-5">
                                     <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>
@@ -142,7 +147,7 @@ const FolderListing = ({ isFav, folderNotes, allTrash, allArchived }) => {
                         : <>
                             {folderNotes.map((note, index) => (
                                 <>
-                                    <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer `}>
+                                    <div key={index} onClick={(event) => handleFolderClick(event, note)} className={`mt-5 bg-[#232323] w-full h-24 p-3 rounded cursor-pointer ${note?.id == isClicked ? 'bg-[#444444] text-white' : "bg-[#232323]"}`}>
                                         <h1 className="text-white text-lg font-semibold">{note?.title.substring(0, 25)}</h1>
                                         <div className="flex mt-3 space-x-5">
                                             <h1 className="text-white text-sm w-20">{note?.createdDate}</h1>

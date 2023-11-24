@@ -8,6 +8,7 @@ import { AiFillDelete, AiFillFolder, AiFillFolderOpen, AiOutlineFolderAdd, AiOut
 import { BiTrashAlt } from 'react-icons/bi';
 import { openAddForm } from '../store/localStore/openAddForm';
 import { SelectNoteReducer } from '../store/localStore/SelectedNotes';
+import { ClickReducer } from '../store/localStore/SelectClick';
 
 // eslint-disable-next-line react/prop-types
 const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, addNewFolders, setSearch, search, TrashButtonClick, ArchiveButtonClick }) => {
@@ -16,10 +17,12 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
     const allNotes = useSelector((store) => store.note.notes);
     const allFolderLists = useSelector((store) => store.allFolders.value);
 
-    const [isClicked, setIsClicked] = useState(null);
+    // const [isClicked, setIsClicked] = useState("");
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
     const [serachBox, setserachBox] = useState(false);
+    const isClicked = useSelector((store) => store.isClicked.value);
+
 
     // eslint-disable-next-line react/prop-types
     const recentNotes = allNotes && allNotes.length > 0 && allNotes.slice(-3);
@@ -31,7 +34,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
 
     const handleclick = (event, note) => {
         dispatch(SelectNoteReducer(note))
-        setIsClicked(note?.id);
+        dispatch(ClickReducer(note?.id))
     }
 
     const createNewFolder = () => {
@@ -60,12 +63,12 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
 
     const hanldeSearchChange = Debounce((e) => {
         setSearch(e.target.value)
-    }, 500)
+    }, 700)
 
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
             <div className="flex justify-between px-1 my-7">
-                <div className='relative'><h2 className="nowted-title cursor-pointer" onClick={() => window.location.reload()}>nowted</h2>
+                <div className='relative'><h2 className="nowted-title cursor-pointer" >nowted</h2>
                     <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
                 <div><GoSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl mr-3 mt-2 cursor-pointer' /></div>
@@ -92,7 +95,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                 <div>
                     {recentNotes && recentNotes.length > 0 && recentNotes.map((note) => (
                         <>
-                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer`} >
+                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id === isClicked ? 'bg-blue-500 text-white' : ""}`} >
                                 <CgNotes className={`text-[#747474] text-2xl ${note?.id == isClicked ? 'text-white' : ""}`} />
                                 <p className='text-white'>{note?.title.substring(0, 25)}</p>
                             </div>

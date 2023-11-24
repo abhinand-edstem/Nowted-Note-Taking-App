@@ -21,6 +21,7 @@ import { SelectNoteReducer } from "../store/localStore/SelectedNotes";
 import { inputTitle } from "../store/localStore/InputTitle";
 import { inputContent } from "../store/localStore/InputContent";
 import { allFolderReducer } from "../store/localStore/AllFolders";
+import { ClickReducer } from "../store/localStore/SelectClick";
 
 
 const HomePage = () => {
