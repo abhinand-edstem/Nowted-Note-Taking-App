@@ -70,7 +70,11 @@ const HomePage = () => {
     }, [allFolder])
 
     useEffect(()=>{
+<<<<<<< HEAD
         dispatch(searchAction(search))
+=======
+        dispatch(searchAction(search));
+>>>>>>> 58834f2e82e5e91d2643d578b222d6bd06490403
     },[search])
 
 
@@ -179,12 +183,6 @@ const HomePage = () => {
         }))
     }
 
-    const handleSearch = () => {
-        dispatch(searchAction(search))
-        setTimeout(() => {
-            setSearch("");
-        }, 3000)
-    }
 
     return (
         <div className="flex h-[100vh]">
@@ -198,7 +196,6 @@ const HomePage = () => {
                     addNewFolders={addNewFolders}
                     setSearch={setSearch}
                     search={search}
-                    handleSearch={handleSearch}
                     TrashButtonClick={TrashButtonClick}
                     ArchiveButtonClick={ArchiveButtonClick}
                 />
