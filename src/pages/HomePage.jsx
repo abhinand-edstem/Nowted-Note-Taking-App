@@ -42,7 +42,9 @@ const HomePage = () => {
     const [isFav, setisFav] = useState("list");
     const [folderSelect, setfolderSelect] = useState("")
     const [newFolders, setnewFolders] = useState("")
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
+
+    console.warn({search});
 
     //give some predefined folders
     const allfolders = [];
@@ -66,6 +68,10 @@ const HomePage = () => {
     useEffect(() => {
         dispatch(allFolderReducer(allFolder))
     }, [allFolder])
+
+    useEffect(()=>{
+        dispatch(searchAction(search))
+    },[search])
 
 
     const addNewFolders = () => {

@@ -16,7 +16,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
     const allNotes = useSelector((store) => store.note.notes);
     const allFolderLists = useSelector((store) => store.allFolders.value);
 
-    const [isClicked, setIsClicked] = useState();
+    const [isClicked, setIsClicked] = useState(null);
     const [inputbox, setinputbox] = useState(false);
     const [folderOpen, setfolderOpen] = useState(false);
     const [serachBox, setserachBox] = useState(false);
@@ -48,11 +48,24 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
         dispatch(SelectNoteReducer())
     }
 
+    const Debounce = (cb, timeDelay) => {
+        let timer;
+        return function (...args) {
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(() => {
+                cb(...args)
+            }, timeDelay)
+        }
+    }
+
+    const hanldeSearchChange = Debounce((e) => {
+        setSearch(e.target.value)
+    }, 500)
 
     return (
         <div className="p-3 bg-[#181818] h-[100vh] overflow-y-auto">
-            <div className="flex justify-between px-1 my-8">
-                <div className='relative'><h2 className="nowted-title cursor-pointer" onClick={()=>window.location.reload()}>nowted</h2>
+            <div className="flex justify-between px-1 my-7">
+                <div className='relative'><h2 className="nowted-title cursor-pointer" onClick={() => window.location.reload()}>nowted</h2>
                     <p className='text-[#747474] absolute left-[90px] font-["Kaushan"] top-0'><FaPen /></p>
                 </div>
                 <div><GoSearch onClick={() => setserachBox(!serachBox)} className='text-[#747474] text-2xl mr-3 mt-2 cursor-pointer' /></div>
@@ -60,13 +73,13 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
             {serachBox && <>
                 <div className='flex mb-3'>
                     <input
-                        value={search}
+                        // value={search}
                         maxLength={25}
                         placeholder="Search Here"
-                        onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 rounded-md m-2 w-9/12 h-10 bg-transparent  text-[#747474] placeholder-white'
+                        onChange={hanldeSearchChange}
+                        className='p-2 rounded-md m-2 w-11/12 h-10 bg-black  text-[#747474] placeholder-white'
                     />
-                    <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button>
+                    {/* <button onClick={handleSearch} className='bg-blue-500 p-2 rounded w-12 h-10 mt-2 ml-3'><GoSearch className='text-2xl ml-1 text-white' /></button> */}
                 </div>
             </>}
 
@@ -79,7 +92,7 @@ const Category = ({ favBtnClick, setfolderSelect, setnewFolders, newFolders, add
                 <div>
                     {recentNotes && recentNotes.length > 0 && recentNotes.map((note) => (
                         <>
-                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${note?.id == isClicked ? 'bg-blue-500 text-white' : ""}`} >
+                            <div key={note?.id} onClick={(event) => handleclick(event, note)} className={`flex justify-start p-2 space-x-4 text-[#9d9d9d] cursor-pointer ${isClicked == note.id ? 'bg-blue-500 text-white' : ''}`} >
                                 <CgNotes className={`text-[#747474] text-2xl ${note?.id == isClicked ? 'text-white' : ""}`} />
                                 <p className='text-white'>{note?.title.substring(0, 25)}</p>
                             </div>
